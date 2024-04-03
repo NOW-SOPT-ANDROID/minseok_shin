@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.textNickname.text = "닉네임: $nickname"
         binding.textMbti.text = "MBTI: $mbti"
+        binding.textId.text="$id"
+        binding.textPw.text="$password"
 
 
 
