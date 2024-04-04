@@ -114,8 +114,6 @@ fun SignupScreen() {
                                 intent.putExtra("PW", textpw)
                                 intent.putExtra("NN", textnn)
                                 intent.putExtra("MBTI", textmbti)
-
-
                                 (context as Activity).setResult(Activity.RESULT_OK,intent)
                                 context.finish()
 

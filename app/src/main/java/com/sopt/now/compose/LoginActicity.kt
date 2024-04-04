@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -110,12 +111,17 @@ fun LoginScreen() {
             onClick = {
                 if (textid == userId && textpw == userPw && textid.isNotEmpty() && textpw.isNotEmpty()) {
                     Toast.makeText(context, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                    // Start MainActivity with user information
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra("ID", textid)
                     intent.putExtra("PW", textpw)
-                    intent.putExtra("NN", userNn)
-                    intent.putExtra("MBTI", userMBTI)
+                    intent.putExtra("NN", userId) // Assuming you have received this information from the signup screen
+                    intent.putExtra("MBTI", userMBTI) // Assuming you have received this information from the signup screen
+
+
+                    (context as Activity).setResult(Activity.RESULT_OK, intent)
+
+
+                    context.finish()
                     context.startActivity(intent)
                 } else {
                     Toast.makeText(context, "로그인 실패!", Toast.LENGTH_SHORT).show()
