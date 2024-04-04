@@ -1,6 +1,7 @@
 package com.sopt.now.compose
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -37,7 +38,6 @@ class SignupActivity : ComponentActivity() {
         }
     }
 }
-
 
 
 @Composable
@@ -116,7 +116,8 @@ fun SignupScreen() {
                                 intent.putExtra("MBTI", textmbti)
 
 
-                                context.startActivity(intent)
+                                (context as Activity).setResult(Activity.RESULT_OK,intent)
+                                context.finish()
 
                             } else {
                                 Toast.makeText(context, "MBTI의 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
