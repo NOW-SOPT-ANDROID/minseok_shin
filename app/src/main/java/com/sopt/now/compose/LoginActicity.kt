@@ -41,28 +41,34 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen() {
+    // State variables to hold user information
     var textid by remember { mutableStateOf("") }
     var textpw by remember { mutableStateOf("") }
-
     val context = LocalContext.current
 
+    // State variables to hold user information received from SignupActivity
     var userId by remember { mutableStateOf("") }
     var userPw by remember { mutableStateOf("") }
     var userNn by remember { mutableStateOf("") }
     var userMBTI by remember { mutableStateOf("") }
 
+
+
+
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
+        Toast.makeText(context, "실행", Toast.LENGTH_LONG).show()
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
-            userId = data?.getStringExtra("ID")?:""
-            userPw = data?.getStringExtra("PW")?:""
-            userNn = data?.getStringExtra("NN")?:""
-            userMBTI = data?.getStringExtra("MBTI")?:""
-        }
-        else{
-            Toast.makeText(context,"못 받아옴",Toast.LENGTH_SHORT).show()
+            // Retrieve user information from the result
+            userId = data?.getStringExtra("ID") ?: ""
+            userPw = data?.getStringExtra("PW") ?: ""
+            userNn = data?.getStringExtra("NN") ?: ""
+            userMBTI = data?.getStringExtra("MBTI") ?: ""
+        } else {
+            Toast.makeText(context, "데이터 못 받아옴", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -102,15 +108,15 @@ fun LoginScreen() {
         Button(
             modifier = Modifier.padding(10.dp),
             onClick = {
-                if (textid == userId && textpw == userPw && textid.length+textpw.length>0) {
+                if (textid == userId && textpw == userPw && textid.isNotEmpty() && textpw.isNotEmpty()) {
                     Toast.makeText(context, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    // Start MainActivity with user information
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra("ID", textid)
                     intent.putExtra("PW", textpw)
                     intent.putExtra("NN", userNn)
                     intent.putExtra("MBTI", userMBTI)
-                    launcher.launch(intent)
-
+                    context.startActivity(intent)
                 } else {
                     Toast.makeText(context, "로그인 실패!", Toast.LENGTH_SHORT).show()
                 }
@@ -120,8 +126,8 @@ fun LoginScreen() {
         }
         Button(
             modifier = Modifier.padding(10.dp),
-            onClick = { val signupIntent = Intent(context, SignupActivity::class.java)
-                launcher.launch(signupIntent) }
+            onClick = { launcher.launch(Intent(context, SignupActivity::class.java))
+            } // Launch SignupActivity
         ) {
             Text(text = "회원가입 하기")
         }

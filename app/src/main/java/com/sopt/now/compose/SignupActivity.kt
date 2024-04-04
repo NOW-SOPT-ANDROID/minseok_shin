@@ -49,18 +49,6 @@ fun SignupScreen() {
     val context = LocalContext.current
 
 
-
-//    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            val data = result.data
-//            textid = data?.getStringExtra("ID")?:""
-//            textpw = data?.getStringExtra("PW")?:""
-//            textnn = data?.getStringExtra("NN")?:""
-//            textmbti = data?.getStringExtra("MBTI")?:""
-//        }
-//    }
-
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -127,9 +115,8 @@ fun SignupScreen() {
                                 intent.putExtra("NN", textnn)
                                 intent.putExtra("MBTI", textmbti)
 
+
                                 context.startActivity(intent)
-
-
 
                             } else {
                                 Toast.makeText(context, "MBTI의 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
