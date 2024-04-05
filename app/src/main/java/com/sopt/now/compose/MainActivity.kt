@@ -103,7 +103,8 @@ fun MainScreen(userId: String, userPw: String, userNn: String, userMBTI: String)
 
         )
         Text(text = "MBTI: ${userMBTI.uppercase()}")
-        Text(text = stringResource(id = textResource))
+        Text(text = stringResource(id = textResource),
+            modifier = Modifier.padding(20.dp))
 
     }
 }

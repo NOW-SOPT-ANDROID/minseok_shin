@@ -51,7 +51,6 @@ fun LoginScreen() {
 
 
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
-        Toast.makeText(context, "실행", Toast.LENGTH_LONG).show()
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             userId = data?.getStringExtra("ID") ?: ""
