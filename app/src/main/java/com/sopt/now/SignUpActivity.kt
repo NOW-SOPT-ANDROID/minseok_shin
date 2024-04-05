@@ -38,6 +38,11 @@ class SignUpActivity : AppCompatActivity() {
                                 putExtra("NICKNAME", nickname)
                                 putExtra("MBTI", mbti)
                             }
+                            Snackbar.make(
+                                binding.root,
+                                "회원가입 성공",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                             startActivity(intent)
                         } else {
                             Snackbar.make(
