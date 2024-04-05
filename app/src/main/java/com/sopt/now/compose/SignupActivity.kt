@@ -1,16 +1,12 @@
 package com.sopt.now.compose
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -19,13 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 class SignupActivity : ComponentActivity() {
@@ -75,7 +67,9 @@ fun SignupScreen() {
                 .padding(10.dp),
             label = { Text("비밀번호를 입력해주세요") },
             placeholder = { Text("") },
-            singleLine = true
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
@@ -107,7 +101,6 @@ fun SignupScreen() {
                     if (textpw.length in 8..12) {
                         if (textnn.trim().isNotEmpty()) {
                             if (isValidMBTIFormat(textmbti)) {
-                                // All fields are valid, proceed to registration
                                 Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(context, LoginActivity::class.java)
                                 intent.putExtra("ID", textid)

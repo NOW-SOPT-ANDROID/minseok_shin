@@ -19,13 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 class LoginActivity : ComponentActivity() {
@@ -42,12 +38,10 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen() {
-    // State variables to hold user information
     var textid by remember { mutableStateOf("") }
     var textpw by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    // State variables to hold user information received from SignupActivity
     var userId by remember { mutableStateOf("") }
     var userPw by remember { mutableStateOf("") }
     var userNn by remember { mutableStateOf("") }
@@ -60,7 +54,6 @@ fun LoginScreen() {
         Toast.makeText(context, "실행", Toast.LENGTH_LONG).show()
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
-            // Retrieve user information from the result
             userId = data?.getStringExtra("ID") ?: ""
             userPw = data?.getStringExtra("PW") ?: ""
             userNn = data?.getStringExtra("NN") ?: ""
@@ -76,7 +69,7 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(40.dp))
-        Text(text = "Welcome to SOPT \n 테스트용 ID: $userId PW: $userPw")
+        Text(text = "Welcome to SOPT")
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = textid,
@@ -90,7 +83,6 @@ fun LoginScreen() {
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(
                 onNext = {
-                    // Handle the action when the "Next" button is clicked on the keyboard
                 }
             )
         )
@@ -102,7 +94,9 @@ fun LoginScreen() {
                 .padding(10.dp),
             label = { Text("비밀번호 입력") },
             placeholder = { Text("") },
-            singleLine = true
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = Modifier.height(120.dp))
 
@@ -114,15 +108,11 @@ fun LoginScreen() {
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra("ID", textid)
                     intent.putExtra("PW", textpw)
-                    intent.putExtra("NN", userId) // Assuming you have received this information from the signup screen
-                    intent.putExtra("MBTI", userMBTI) // Assuming you have received this information from the signup screen
-
-
-                    (context as Activity).setResult(Activity.RESULT_OK, intent)
-
-
-                    context.finish()
+                    intent.putExtra("NN", userNn)
+                    intent.putExtra("MBTI", userMBTI)
+                    (context as Activity).setResult(Activity.RESULT_OK,intent)
                     context.startActivity(intent)
+                    context.finish()
                 } else {
                     Toast.makeText(context, "로그인 실패!", Toast.LENGTH_SHORT).show()
                 }
@@ -133,7 +123,7 @@ fun LoginScreen() {
         Button(
             modifier = Modifier.padding(10.dp),
             onClick = { launcher.launch(Intent(context, SignupActivity::class.java))
-            } // Launch SignupActivity
+            }
         ) {
             Text(text = "회원가입 하기")
         }
