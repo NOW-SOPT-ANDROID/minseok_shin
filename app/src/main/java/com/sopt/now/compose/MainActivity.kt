@@ -18,14 +18,18 @@ import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 
 class MainActivity : ComponentActivity() {
+    private val nameId = "ID"
+    private val namePassword = "PASSWORD"
+    private val nameNickname = "NICKNAME"
+    private val nameMbti = "MBTI"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NOWSOPTAndroidTheme {
-                val userId = intent.getStringExtra("ID") ?: "DefaultUserID"
-                val userPw = intent.getStringExtra("PW") ?: "DefaultPassword"
-                val userNn = intent.getStringExtra("NN") ?: "DefaultNickname"
-                val userMBTI = intent.getStringExtra("MBTI") ?: "DefaultMBTI"
+                val userId = intent.getStringExtra(nameId) ?: "DefaultUserID"
+                val userPw = intent.getStringExtra(namePassword) ?: "DefaultPassword"
+                val userNn = intent.getStringExtra(nameNickname) ?: "DefaultNickname"
+                val userMBTI = intent.getStringExtra(nameMbti) ?: "DefaultMBTI"
                 MainScreen(userId, userPw, userNn, userMBTI)
             }
         }

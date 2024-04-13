@@ -47,16 +47,19 @@ fun LoginScreen() {
     var userNn by remember { mutableStateOf("") }
     var userMBTI by remember { mutableStateOf("") }
 
-
+    val nameId = "ID"
+    val namePassword = "PASSWORD"
+    val nameNickname = "NICKNAME"
+    val nameMbti = "MBTI"
 
 
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
-            userId = data?.getStringExtra("ID") ?: ""
-            userPw = data?.getStringExtra("PW") ?: ""
-            userNn = data?.getStringExtra("NN") ?: ""
-            userMBTI = data?.getStringExtra("MBTI") ?: ""
+            userId = data?.getStringExtra(nameId) ?: ""
+            userPw = data?.getStringExtra(namePassword) ?: ""
+            userNn = data?.getStringExtra(nameNickname) ?: ""
+            userMBTI = data?.getStringExtra(nameMbti) ?: ""
         } else {
             Toast.makeText(context, "데이터 못 받아옴", Toast.LENGTH_SHORT).show()
         }
@@ -105,10 +108,10 @@ fun LoginScreen() {
                 if (textid == userId && textpw == userPw && textid.isNotEmpty() && textpw.isNotEmpty()) {
                     Toast.makeText(context, "로그인 성공!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
-                    intent.putExtra("ID", textid)
-                    intent.putExtra("PW", textpw)
-                    intent.putExtra("NN", userNn)
-                    intent.putExtra("MBTI", userMBTI)
+                    intent.putExtra(nameId, textid)
+                    intent.putExtra(namePassword, textpw)
+                    intent.putExtra(nameNickname, userNn)
+                    intent.putExtra(nameMbti, userMBTI)
                     (context as Activity).setResult(Activity.RESULT_OK,intent)
                     context.startActivity(intent)
                     context.finish()

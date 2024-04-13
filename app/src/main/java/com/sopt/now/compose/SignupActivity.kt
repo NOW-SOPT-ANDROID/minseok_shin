@@ -40,6 +40,11 @@ fun SignupScreen() {
     var textmbti by remember { mutableStateOf("") }
     val context = LocalContext.current
 
+    val nameId = "ID"
+    val namePassword = "PASSWORD"
+    val nameNickname = "NICKNAME"
+    val nameMbti = "MBTI"
+
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -103,10 +108,10 @@ fun SignupScreen() {
                             if (isValidMBTIFormat(textmbti)) {
                                 Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(context, LoginActivity::class.java)
-                                intent.putExtra("ID", textid)
-                                intent.putExtra("PW", textpw)
-                                intent.putExtra("NN", textnn)
-                                intent.putExtra("MBTI", textmbti)
+                                intent.putExtra(nameId, textid)
+                                intent.putExtra(namePassword, textpw)
+                                intent.putExtra(nameNickname, textnn)
+                                intent.putExtra(nameMbti, textmbti)
                                 (context as Activity).setResult(Activity.RESULT_OK,intent)
                                 context.finish()
 
