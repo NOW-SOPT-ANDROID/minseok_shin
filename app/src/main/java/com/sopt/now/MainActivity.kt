@@ -7,16 +7,21 @@ import com.sopt.now.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val nameId="ID"
+    private val namePassword = "PASSWORD"
+    private val nameNickname = "NICKNAME"
+    private val nameMbti = "MBTI"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater) //TODO: inflate 두 번 하면 오류
+        binding = ActivityMainBinding.inflate(layoutInflater) //TODO: inflate 두 번 하면 오류 공부
         setContentView(binding.root)
 
-        // Receive the passed information from the intent extras
-        val id = intent.getStringExtra("ID")
-        val password = intent.getStringExtra("PASSWORD")
-        val nickname = intent.getStringExtra("NICKNAME")
-        val mbti = intent.getStringExtra("MBTI")
+
+
+        val id = intent.getStringExtra(nameId)
+        val password = intent.getStringExtra(namePassword)
+        val nickname = intent.getStringExtra(nameNickname)
+        val mbti = intent.getStringExtra(nameMbti)
 
         Snackbar.make(
             binding.root,
@@ -25,23 +30,20 @@ class MainActivity : AppCompatActivity() {
         ).show()
 
 
-        binding.textNickname.text = "닉네임: $nickname"
-        binding.textMbti.text = "MBTI: $mbti"
+        binding.textNickname.text = getString(R.string.nickname,nickname)
+        binding.textMbti.text = getString(R.string.mbti,mbti)
         binding.textId.text="$id"
         binding.textPw.text="$password"
 
 
 
-        val mbtiImageName = mbti?.toLowerCase() + ".png"
-        val mbtiImageId = mbtiImageName?.let { resources.getIdentifier(it, "drawable", packageName) }
-        if (mbtiImageId != null && mbtiImageId != 0) {
+        val mbtiImageName = mbti?.lowercase() + ".png"
+        val mbtiImageId = mbtiImageName.let { resources.getIdentifier(it, "drawable", packageName) }
+        if (mbtiImageId != 0) {
             binding.imageMbti.setImageResource(mbtiImageId)
 
         }
 
-        // Assume 'mbtiType' is the MBTI type you have and it's assigned somewhere in your code
-
-// Map MBTI types to their corresponding description resource names
         val mbtiDescriptionMap = mapOf(
             "ISFP" to R.string.isfp,
             "ISFJ" to R.string.isfj,
@@ -61,13 +63,12 @@ class MainActivity : AppCompatActivity() {
             "ENTJ" to R.string.entj
 
         )
-        // Retrieve the description resource ID based on the MBTI type
+
         val mbtiDescriptionResId = mbti?.let { mbtiDescriptionMap[it] }
 
-        // Get the description string using the resource ID
+
         val mbtiDescription = mbtiDescriptionResId?.let { getString(it) } ?: getString(R.string.default_description)
 
-        // Set the description using data binding
         binding.textMbtiDes.text = mbtiDescription
 
     }

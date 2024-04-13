@@ -17,4 +17,6 @@
     <string name="entp">풍부한 상상력으로 지적인 도전을 즐기며 뜨거운 논쟁을 즐기는 변론가</string>
     <string name="entj">비전을 갖고 타인을 동기 부여하는 리더쉽을 지닌 대담한 통솔자</string>
     <string name="default_description">Default Description</string>
+    <string name="nickname">닉네임: %1s</string>
+    <string name="mbti">MBTI: %1s</string>
 </resources>
