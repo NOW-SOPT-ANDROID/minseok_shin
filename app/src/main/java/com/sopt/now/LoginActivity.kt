@@ -3,6 +3,7 @@ package com.sopt.now
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.sopt.now.databinding.ActivityLoginBinding
@@ -45,13 +46,20 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
                 else -> {
+                    Log.d("Login Success","Login Success")
                     val intentHome = Intent(this, HomeActivity::class.java).apply {
-                        putExtra("ID", id)
-                        putExtra("PASSWORD", password)
-                        putExtra("NICKNAME", nickname)
-                        putExtra("MBTI", mbti)
+                        putExtra(nameId, id)
+                        putExtra(namePassword, password)
+                        putExtra(nameNickname, nickname)
+                        putExtra(nameMbti, mbti)
                     }
+                    Snackbar.make(
+                        binding.root,
+                        "로그인 성공!",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     startActivity(intentHome)
+
                 }
             }
 

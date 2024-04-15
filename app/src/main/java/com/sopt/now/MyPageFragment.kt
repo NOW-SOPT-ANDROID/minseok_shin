@@ -35,11 +35,6 @@ class MyPageFragment(userId:String,userPassword:String,userNickname:String,userM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Snackbar.make(
-            binding.root,
-            "로그인 성공!",
-            Snackbar.LENGTH_SHORT
-        ).show()
 
         binding.textNickname.text = getString(R.string.nickname,nickname)
         binding.textMbti.text = getString(R.string.mbti,mbti)
