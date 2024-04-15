@@ -10,11 +10,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme."
+        android:theme="@style/Theme.NOWSOPTAndroid"
         tools:targetApi="31">
         <activity
             android:name=".HomeActivity"
-            android:exported="true" >
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,15 +29,17 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
+
         <activity
             android:name=".HomeFragment"
             android:exported="true">
 
         </activity>
+
     </application>
 
 </manifest>

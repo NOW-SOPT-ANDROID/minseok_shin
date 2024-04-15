@@ -3,13 +3,20 @@ package com.sopt.now
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.fragmentpractice.HomeFragment
-import com.example.fragmentpractice.MyPageFragment
-import com.example.fragmentpractice.SearchFragment
 import com.sopt.now.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val nameId="ID"
+    private val namePassword = "PASSWORD"
+    private val nameNickname = "NICKNAME"
+    private val nameMbti = "MBTI"
+
+    private val userId = intent.getStringExtra(nameId).toString()
+    private val userPassword = intent.getStringExtra(namePassword).toString()
+    private val userNickname = intent.getStringExtra(nameNickname).toString()
+    private val userMbti = intent.getStringExtra(nameMbti).toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -39,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment())
+                    replaceFragment(MyPageFragment(userId,userPassword,userNickname,userMbti))
                     true
                 }
 
