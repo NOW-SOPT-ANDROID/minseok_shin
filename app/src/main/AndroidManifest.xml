@@ -36,7 +36,7 @@
 
         <activity
             android:name=".HomeFragment"
-            android:exported="true">
+            android:exported="false">
 
         </activity>
 
