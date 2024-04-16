@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         val currentFragment = supportFragmentManager.findFragmentById(binding.fcvHome.id)
         if (currentFragment == null) {
             supportFragmentManager.beginTransaction()
-                .add(binding.fcvHome.id, HomeFragment())
+                .add(binding.fcvHome.id, HomeFragment(userNickname))
                 .commit()
         }
     }
@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
-                    replaceFragment(HomeFragment())
+                    replaceFragment(HomeFragment(userNickname))
                     true
                 }
 
