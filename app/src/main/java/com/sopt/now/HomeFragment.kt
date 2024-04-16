@@ -48,7 +48,7 @@ class HomeFragment(userncikname:String): Fragment() {
         _binding = null
     }
 
-    private val myProfile = listOf<MyProfile>(
+    private val myProfile = listOf(
         MyProfile(
             profileImage = R.drawable.baseline_person_outline_24,
             name = userncikname,
@@ -56,7 +56,7 @@ class HomeFragment(userncikname:String): Fragment() {
         )
     )
 
-    private val mockFriendList = listOf<Friend>(
+    private val mockFriendList = listOf(
         Friend(
             profileImage = R.drawable.baseline_person_24,
             name = "강문수",

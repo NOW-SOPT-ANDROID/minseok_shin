@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         val mbtiImageName = mbti?.lowercase() + ".png"
         val mbtiImageId = mbtiImageName.let { resources.getIdentifier(it, "drawable", packageName) }
+        // TODO: getIdentifier 말고 다른 방법으로 파일 찾아보기
         if (mbtiImageId != 0) {
             binding.imageMbti.setImageResource(mbtiImageId)
 

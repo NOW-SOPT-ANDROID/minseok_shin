@@ -25,7 +25,7 @@ class SearchFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 기존 액티비티의 onCreate에 작성했던 init로직을 이제는 여기에 작성합니다.
+        // TODO: 기존 액티비티의 onCreate에 작성했던 init로직을 이제는 여기에 작성합니다.
     }
 
     override fun onDestroyView() {

@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
         Log.d("HomeActivity","HomeActivity onCreate")
 
-        // 여기서 intent로부터 값을 가져오도록 수정
+
         userId = intent.getStringExtra(nameId).toString()
         userPassword = intent.getStringExtra(namePassword).toString()
         userNickname = intent.getStringExtra(nameNickname).toString()

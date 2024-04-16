@@ -3,7 +3,6 @@ package com.sopt.now
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sopt.now.databinding.ItemFriendBinding
 import com.sopt.now.databinding.ItemMyprofileBinding
 
 class MyProfileAdapter : RecyclerView.Adapter<MyProfileHolder>() {
