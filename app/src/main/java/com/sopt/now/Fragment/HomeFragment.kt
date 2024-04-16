@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopt.now.Adapter.FriendAdapter
 import com.sopt.now.Adapter.MyProfileAdapter
-import com.sopt.now.Friend
-import com.sopt.now.MyProfile
+import com.sopt.now.DataFile.Friend
+import com.sopt.now.DataFile.MyProfile
 import com.sopt.now.R
 import com.sopt.now.databinding.FragmentHomeBinding
 
