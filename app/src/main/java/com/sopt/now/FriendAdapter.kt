@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sopt.now.databinding.ItemFriendBinding
 
 class FriendAdapter : RecyclerView.Adapter<FriendViewHolder>() {
-    // 임시의 빈 리스트
     private var friendList: List<Friend> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {

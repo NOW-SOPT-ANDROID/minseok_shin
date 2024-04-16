@@ -84,7 +84,7 @@ class HomeFragment(userncikname:String): Fragment() {
         ),Friend(
             profileImage = R.drawable.baseline_person_24,
             name = "박동민",
-            selfDescription = "34기 안드로이드 YB",
+            selfDescription = "34기 안드로이드 OB",
         ),Friend(
             profileImage = R.drawable.baseline_person_24,
             name = "박유진",
