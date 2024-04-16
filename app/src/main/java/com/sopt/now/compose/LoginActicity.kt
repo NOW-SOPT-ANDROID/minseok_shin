@@ -3,6 +3,7 @@ package com.sopt.now.compose
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -50,7 +51,7 @@ fun LoginScreen() {
     val nameId = "ID"
     val namePassword = "PASSWORD"
     val nameNickname = "NICKNAME"
-    val nameMbti = "MBTI"
+    val nameMBTI = "MBTI"
 
 
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
@@ -59,7 +60,7 @@ fun LoginScreen() {
             userId = data?.getStringExtra(nameId) ?: ""
             userPw = data?.getStringExtra(namePassword) ?: ""
             userNn = data?.getStringExtra(nameNickname) ?: ""
-            userMBTI = data?.getStringExtra(nameMbti) ?: ""
+            userMBTI = data?.getStringExtra(nameMBTI) ?: ""
         } else {
             Toast.makeText(context, "데이터 못 받아옴", Toast.LENGTH_SHORT).show()
         }
@@ -107,13 +108,16 @@ fun LoginScreen() {
             onClick = {
                 if (textid == userId && textpw == userPw && textid.isNotEmpty() && textpw.isNotEmpty()) {
                     Toast.makeText(context, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    Log.d("LoginScreen","Login Success")
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra(nameId, textid)
                     intent.putExtra(namePassword, textpw)
                     intent.putExtra(nameNickname, userNn)
-                    intent.putExtra(nameMbti, userMBTI)
+                    intent.putExtra(nameMBTI, userMBTI)
                     (context as Activity).setResult(Activity.RESULT_OK,intent)
+                    Log.d("LoginScreen","Set Result")
                     context.startActivity(intent)
+                    Log.d("LoginScreen","Go Main")
                     context.finish()
                 } else {
                     Toast.makeText(context, "로그인 실패!", Toast.LENGTH_SHORT).show()
