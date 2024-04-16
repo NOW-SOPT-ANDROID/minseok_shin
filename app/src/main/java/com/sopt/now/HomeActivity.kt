@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.sopt.now.Fragment.HomeFragment
+import com.sopt.now.Fragment.MyPageFragment
+import com.sopt.now.Fragment.SearchFragment
 import com.sopt.now.databinding.ActivityHomeBinding
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding

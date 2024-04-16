@@ -1,9 +1,10 @@
-package com.sopt.now
+package com.sopt.now.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.sopt.now.R
 import com.sopt.now.databinding.FragmentMypageBinding
 
 class MyPageFragment(userId:String,userPassword:String,userNickname:String,userMbti:String): Fragment() {

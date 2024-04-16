@@ -1,8 +1,10 @@
-package com.sopt.now
+package com.sopt.now.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sopt.now.Friend
+import com.sopt.now.ViewHolder.FriendViewHolder
 import com.sopt.now.databinding.ItemFriendBinding
 
 class FriendAdapter : RecyclerView.Adapter<FriendViewHolder>() {

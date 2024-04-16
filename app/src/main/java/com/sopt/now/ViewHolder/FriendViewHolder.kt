@@ -1,6 +1,7 @@
-package com.sopt.now
+package com.sopt.now.ViewHolder
 
 import androidx.recyclerview.widget.RecyclerView
+import com.sopt.now.Friend
 import com.sopt.now.databinding.ItemFriendBinding
 
 class FriendViewHolder(private val binding: ItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
