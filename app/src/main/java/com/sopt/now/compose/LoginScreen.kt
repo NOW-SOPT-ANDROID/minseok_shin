@@ -27,9 +27,6 @@ fun LoginScreen(navController: NavHostController, userID: String?, userPasswd: S
     var textpw by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-
-
-
     NOWSOPTAndroidTheme {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -75,7 +72,7 @@ fun LoginScreen(navController: NavHostController, userID: String?, userPasswd: S
                         Log.d("LoginScreen","Login Success")
                         navController.navigate(Routes.MyPage.route+"/$textid/$textpw/$userNickname/$userMBTI")
                     } else {
-                        Toast.makeText(context, "로그인 실패! 입력 ID: $textid 회원가입 ID: $userID", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "로그인 실패! ", Toast.LENGTH_SHORT).show()
                     }
                 }
             ) {

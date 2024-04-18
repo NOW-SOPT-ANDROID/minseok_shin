@@ -11,17 +11,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
+
 @Composable
 fun HomeScreen(navController: NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
+
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Text(
-            text="HomeScreen",
+            text = "HomeScreen",
             fontSize = 40.sp,
             fontWeight = FontWeight.ExtraBold
         )
-
     }
 }

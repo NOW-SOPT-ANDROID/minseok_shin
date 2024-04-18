@@ -43,7 +43,6 @@ fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: 
         "ISTP" -> R.drawable.istp
         else -> R.drawable.ic_launcher_foreground
     }
-
     val textResource = when (userMBTI?.uppercase()) {
         "ENFJ" -> R.string.enfj
         "ENFP" -> R.string.enfp

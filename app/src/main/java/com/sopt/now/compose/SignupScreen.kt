@@ -98,8 +98,8 @@ fun SignupScreen(navController: NavController) {
                     }
                     else -> {
                         Log.d("SignUp","SignUp Success")
-                        Toast.makeText(context, "회원가입 성공! ${textid}", Toast.LENGTH_SHORT).show()
-                        navController.navigate("${Routes.Login.route}?userID=$textid&userPasswd=$textpw&userNickname=$textnn&userMBTI=$textmbti")
+                        Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                        navController.navigate("${Routes.Login.route}?userid=$textid&passwd=$textpw&nickname=$textnn&mbti=$textmbti")
                         Log.d("SignUp","Go LoginScreen")
                     }
                 }
