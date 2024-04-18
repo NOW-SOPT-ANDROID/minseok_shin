@@ -22,23 +22,23 @@ fun NaviGraph(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = Routes.Login.route) {
 
-        composable(route = Routes.Login.route+"?userid={userID}&passwd={userPasswd}&nickname={userNickname}&mbti={userMBTI}",
+        composable(route = Routes.Login.route + "?userid={userID}&passwd={userPasswd}&nickname={userNickname}&mbti={userMBTI}",
             arguments = listOf(
                 navArgument(name = "userID") {
                     type = NavType.StringType
-                    nullable=true
+                    nullable = true
                 },
                 navArgument(name = "userPasswd") {
                     type = NavType.StringType
-                    nullable=true
+                    nullable = true
                 },
                 navArgument(name = "userNickname") {
                     type = NavType.StringType
-                    nullable=true
+                    nullable = true
                 },
                 navArgument(name = "userMBTI") {
                     type = NavType.StringType
-                    nullable=true
+                    nullable = true
                 }
             )
         )
@@ -80,8 +80,6 @@ fun NaviGraph(navController: NavHostController) {
             SignupScreen(
                 navController = navController
             )
-
         }
     }
-
 }
