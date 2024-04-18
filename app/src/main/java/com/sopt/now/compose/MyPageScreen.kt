@@ -18,13 +18,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: String?, userNickname: String?, userMBTI: String?) {
+fun MyPageScreen() {
+    val navViewModel: NavViewModel =
+        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
-    Log.d("MyPageScreen","MyPageScreen start")
-    val imageResource = when (userMBTI?.uppercase()) {
+    Log.d("MyPageScreen", "MyPageScreen start")
+    val imageResource = when (navViewModel.userMBTI.uppercase()) {
         "ENFJ" -> R.drawable.enfj
         "ENFP" -> R.drawable.enfp
         "ENTJ" -> R.drawable.entj
@@ -43,7 +45,7 @@ fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: 
         "ISTP" -> R.drawable.istp
         else -> R.drawable.ic_launcher_foreground
     }
-    val textResource = when (userMBTI?.uppercase()) {
+    val textResource = when (navViewModel.userMBTI.uppercase()) {
         "ENFJ" -> R.string.enfj
         "ENFP" -> R.string.enfp
         "ENTJ" -> R.string.entj
@@ -75,9 +77,9 @@ fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: 
                 modifier = Modifier.background(Color.LightGray)
             )
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "닉네임: $userNickname")
-                Text(text = "ID : $userID")
-                Text(text = "Password: $userPasswd")
+                Text(text = "닉네임: ${navViewModel.userNickname}")
+                Text(text = "ID : ${navViewModel.userID}")
+                Text(text = "Password: ${navViewModel.userPassword}")
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -89,9 +91,11 @@ fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: 
                 .aspectRatio(16f / 9f)
 
         )
-        Text(text = "MBTI: ${userMBTI?.uppercase()}")
-        Text(text = stringResource(id = textResource),
-            modifier = Modifier.padding(20.dp))
+        Text(text = "MBTI: ${navViewModel.userMBTI.uppercase()}")
+        Text(
+            text = stringResource(id = textResource),
+            modifier = Modifier.padding(20.dp)
+        )
 
     }
 }

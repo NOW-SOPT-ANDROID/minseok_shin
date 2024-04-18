@@ -9,11 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen() {
     //TODO: 친구 리스트 구현
     Column(
         modifier = Modifier.fillMaxSize(),

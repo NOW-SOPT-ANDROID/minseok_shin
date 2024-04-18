@@ -26,7 +26,7 @@ fun BottomBar(
 ) {
 
     val screens = listOf(
-        Destinations.Home, Destinations.Search, Destinations.MyPage
+        BottomNavItem.Home, BottomNavItem.Search, BottomNavItem.MyPage
     )
 
     if (isLoggedIn) {
@@ -59,24 +59,24 @@ fun BottomBar(
 
 }
 
-sealed class Destinations(
+sealed class BottomNavItem(
     val route: String,
     val title: String? = null,
     val icon: ImageVector? = null
 ) {
-    object Home : Destinations(
+    data object Home : BottomNavItem(
         route = Routes.Home.route,
         title = "Home",
         icon = Icons.Default.Home
     )
 
-    object Search : Destinations(
+    data object Search : BottomNavItem(
         route = Routes.Search.route,
         title = "Search",
         icon = Icons.Default.Search
     )
 
-    object MyPage : Destinations(
+    data object MyPage : BottomNavItem(
         route = Routes.MyPage.route,
         title = "MyPage",
         icon = Icons.Default.Person

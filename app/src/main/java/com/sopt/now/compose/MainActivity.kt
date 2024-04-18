@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         if (isLoggedIn) {
-                            BottomBar(navController = navController, isLoggedIn = isLoggedIn)
+                            BottomBar(navController = navController, isLoggedIn = true)
                         }
                     }
                 ) { innerPadding ->
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .fillMaxSize()
                     ) {
-                        NaviGraph(navController, isLoggedIn) { loggedIn ->
+                        NaviGraph(navController) { loggedIn ->
                             isLoggedIn = loggedIn
                         }
                     }
