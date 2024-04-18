@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun MyPageScreen(navController: NavHostController,userId: String, userPw: String, userNn: String, userMBTI: String) {
+fun MyPageScreen(navController: NavHostController, userID: String?, userPasswd: String?, userNickname: String?, userMBTI: String?) {
 
     Log.d("MyPageScreen","MyPageScreen start")
-    val imageResource = when (userMBTI.uppercase()) {
+    val imageResource = when (userMBTI?.uppercase()) {
         "ENFJ" -> R.drawable.enfj
         "ENFP" -> R.drawable.enfp
         "ENTJ" -> R.drawable.entj
@@ -41,10 +41,10 @@ fun MyPageScreen(navController: NavHostController,userId: String, userPw: String
         "ISFP" -> R.drawable.isfp
         "ISTJ" -> R.drawable.istj
         "ISTP" -> R.drawable.istp
-        else -> R.drawable.ic_launcher_foreground // Use a default image if userMBTI doesn't match any specific case
+        else -> R.drawable.ic_launcher_foreground
     }
 
-    val textResource = when (userMBTI.uppercase()) {
+    val textResource = when (userMBTI?.uppercase()) {
         "ENFJ" -> R.string.enfj
         "ENFP" -> R.string.enfp
         "ENTJ" -> R.string.entj
@@ -61,7 +61,7 @@ fun MyPageScreen(navController: NavHostController,userId: String, userPw: String
         "ISFP" -> R.string.isfp
         "ISTJ" -> R.string.istj
         "ISTP" -> R.string.istp
-        else -> R.string.error // Use a default text resource if userMBTI doesn't match any specific case
+        else -> R.string.error
     }
 
     Column(
@@ -71,14 +71,14 @@ fun MyPageScreen(navController: NavHostController,userId: String, userPw: String
         Spacer(modifier = Modifier.height(100.dp))
         Row {
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Replace R.drawable.ic_launcher_foreground with your image resource
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = "프로필 이미지",
                 modifier = Modifier.background(Color.LightGray)
             )
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "닉네임: $userNn")
-                Text(text = "ID : $userId")
-                Text(text = "Password: $userPw")
+                Text(text = "닉네임: $userNickname")
+                Text(text = "ID : $userID")
+                Text(text = "Password: $userPasswd")
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -90,7 +90,7 @@ fun MyPageScreen(navController: NavHostController,userId: String, userPw: String
                 .aspectRatio(16f / 9f)
 
         )
-        Text(text = "MBTI: ${userMBTI.uppercase()}")
+        Text(text = "MBTI: ${userMBTI?.uppercase()}")
         Text(text = stringResource(id = textResource),
             modifier = Modifier.padding(20.dp))
 

@@ -16,12 +16,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.NOWSOPTAndroid">
-        </activity>
-
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.NOWSOPTAndroid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,8 +23,13 @@
         </activity>
 
         <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NOWSOPTAndroid"/>
+
+        <activity
             android:name=".SignupActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.NOWSOPTAndroid"/>
 
 
