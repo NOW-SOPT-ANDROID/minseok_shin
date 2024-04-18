@@ -173,8 +173,8 @@ fun MyProfileItem(myProfile: MyProfile) {
                     text = myProfile.description,
                     fontSize = 16.sp,
                     color = Color.DarkGray,
-                    textAlign = TextAlign.End, // Align description to the right
-                    modifier = Modifier.fillMaxWidth() // Occupy all available width
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
         }
@@ -207,8 +207,8 @@ fun FriendProfileItem(friend: Friend) {
                 Text(
                     text = friend.description,
                     color = Color.DarkGray,
-                    textAlign = TextAlign.End, // Align description to the right
-                    modifier = Modifier.fillMaxWidth() // Occupy all available width
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
         }
