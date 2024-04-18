@@ -1,6 +1,6 @@
 package com.sopt.now.compose
 
-import android.support.annotation.StringRes
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,35 +12,27 @@ sealed class Routes(val route: String) {
     object Login : Routes("Login")
     object SignUp : Routes("SignUp")
     object MyPage : Routes("MyPage")
+    object Home : Routes("Home")
+    object Search : Routes("Search")
 
 }
-sealed class BottomNavRoutes(val route: String, @StringRes val resourceId: Int) {
-    object Home : BottomNavRoutes("Home", R.string.home)
-    object Search : BottomNavRoutes("Search", R.string.search)
-    object MyPage : BottomNavRoutes("MyPage", R.string.mypage)
-}
-
-val navItems = listOf(
-    BottomNavRoutes.Home,
-    BottomNavRoutes.Search,
-    BottomNavRoutes.MyPage
-)
 
 @Composable
-fun NaviGraph(navController: NavHostController) {
+fun NaviGraph(
+    navController: NavHostController,
+    isLoggedIn: Boolean,
+    onLoginSuccess: (Boolean) -> Unit
+) {
     NavHost(navController = navController, startDestination = Routes.Login.route) {
 
-        composable(route = BottomNavRoutes.Home.route) {
+        composable(route = Routes.Home.route) {
             HomeScreen(navController)
         }
-        composable(route = BottomNavRoutes.Search.route) {
+        composable(route = Routes.Search.route) {
             SearchScreen(navController)
         }
 
-//        composable(route = BottomNavRoutes.MyPage.route) {
-//            MyPageScreen(navController)
-//        }
-        composable(route = BottomNavRoutes.MyPage.route + "/{userID}/{userPasswd}/{userNickname}/{userMBTI}",
+        composable(route = Routes.MyPage.route + "/{userID}/{userPasswd}/{userNickname}/{userMBTI}",
             arguments = listOf(
                 navArgument(name = "userID") {
                     type = NavType.StringType
@@ -62,7 +54,6 @@ fun NaviGraph(navController: NavHostController) {
                 userPasswd = it.arguments?.getString("userPasswd"),
                 userNickname = it.arguments?.getString("userNickname"),
                 userMBTI = it.arguments?.getString("userMBTI")
-
             )
         }
 
@@ -85,24 +76,24 @@ fun NaviGraph(navController: NavHostController) {
                     nullable = true
                 }
             )
-        )
-        {
+        ) { navBackStackEntry ->
+            val userID = navBackStackEntry.arguments?.getString("userID")
+            val userPasswd = navBackStackEntry.arguments?.getString("userPasswd")
+            val userNickname = navBackStackEntry.arguments?.getString("userNickname")
+            val userMBTI = navBackStackEntry.arguments?.getString("userMBTI")
+
             LoginScreen(
                 navController = navController,
-                userID = it.arguments?.getString("userID"),
-                userPasswd = it.arguments?.getString("userPasswd"),
-                userNickname = it.arguments?.getString("userNickname"),
-                userMBTI = it.arguments?.getString("userMBTI")
-
+                userID = userID,
+                userPasswd = userPasswd,
+                userNickname = userNickname,
+                userMBTI = userMBTI,
+                onLoginSuccess = onLoginSuccess
             )
         }
+
         composable(route = Routes.SignUp.route) {
-            SignupScreen(
-                navController = navController
-            )
+            SignupScreen(navController = navController)
         }
-
-
     }
 }
-

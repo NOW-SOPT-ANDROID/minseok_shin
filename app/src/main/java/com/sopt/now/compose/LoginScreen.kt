@@ -21,11 +21,19 @@ import androidx.navigation.NavHostController
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 @Composable
-fun LoginScreen(navController: NavHostController, userID: String?, userPasswd: String?, userNickname: String?, userMBTI: String?) {
+fun LoginScreen(
+    navController: NavHostController,
+    userID: String?,
+    userPasswd: String?,
+    userNickname: String?,
+    userMBTI: String?,
+    onLoginSuccess: (Boolean) -> Unit
+) {
 
     var textid by remember { mutableStateOf("") }
     var textpw by remember { mutableStateOf("") }
     val context = LocalContext.current
+
 
     NOWSOPTAndroidTheme {
         Column(
@@ -70,6 +78,7 @@ fun LoginScreen(navController: NavHostController, userID: String?, userPasswd: S
                     if (textid == userID && textpw == userPasswd && textid.isNotEmpty() && textpw.isNotEmpty()) {
                         Toast.makeText(context, "로그인 성공!", Toast.LENGTH_SHORT).show()
                         Log.d("LoginScreen","Login Success")
+                        onLoginSuccess(true)
                         navController.navigate(Routes.MyPage.route+"/$textid/$textpw/$userNickname/$userMBTI")
                     } else {
                         Toast.makeText(context, "로그인 실패! ", Toast.LENGTH_SHORT).show()
