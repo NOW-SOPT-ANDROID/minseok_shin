@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">NOW SOPT Android</string>
+    <string name="isfp">겸손하고 융통성 있는 호기심 많은 예술가</string>
+    <string name="isfj">주변사람을 보호할 준비가 되어 있는 헌신적이고 따뜻한 스타일</string>
+    <string name="istp">논리적이고 뛰어난 상황 적응력을 지닌 만능 재주꾼</string>
+    <string name="istj">사실을 중시하는 믿음직한 현실주의자</string>
+    <string name="infp">상냥한 성격의 이타주의자로 건강하고 밝은 사회 건설에 앞장서는 낭만형</string>
+    <string name="infj">조용하고 신비로우며 샘솟는 영감으로 지칠 줄 모르는 이상주의자</string>
+    <string name="intp">사회 현상을 빠르게 파악하고 비평하는 논리적인 사색가</string>
+    <string name="intj">한번 시작한 일은 끝까지 해내는 용의주도한 전략가</string>
+    <string name="esfp">우호적인 성격과 분위기를 리드하며 에너지가 넘치는 자유로운 영혼의 연예인</string>
+    <string name="esfj">배려심이 넘치고 항상 다른 사람을 도울 준비가 되어 있는 성격으로 인기가 많고 사교성 높은 마당발 </string>
+    <string name="estp">다양함을 선호하고 즐기는 뛰어난 직관력 모험을 즐기는 사업가</string>
+    <string name="estj">사물과 사람을 관리하는 데 뛰어난 능력을 가진 경영자 </string>
+    <string name="enfp">창의적이며 항상 웃을 거리를 찾아다니는 활발한 성격으로 사람들과 자유롭게 어울리기를 좋아하는 넘치는 열정의 소유자</string>
+    <string name="enfj">넘치는 카리스마와 영향력으로 청중을 압도하는 리더형</string>
+    <string name="entp">풍부한 상상력으로 지적인 도전을 즐기며 뜨거운 논쟁을 즐기는 변론가</string>
+    <string name="entj">비전을 갖고 타인을 동기 부여하는 리더쉽을 지닌 대담한 통솔자</string>
+    <string name="error">오류</string>
 </resources>
