@@ -10,21 +10,24 @@ import com.sopt.now.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val nameId="ID"
-    private val namePassword = "PASSWORD"
-    private val nameNickname = "NICKNAME"
-    private val nameMbti = "MBTI"
+
+    enum class UserInfo(val key: String) {
+        ID("ID"),
+        PASSWORD("PASSWORD"),
+        NICKNAME("NICKNAME"),
+        MBTI("MBTI")
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val id = intent.getStringExtra(nameId)
-        val password = intent.getStringExtra(namePassword)
-        val nickname = intent.getStringExtra(nameNickname)
-        val mbti = intent.getStringExtra(nameMbti)
-
+        val id = intent.getStringExtra(UserInfo.ID.key)
+        val password = intent.getStringExtra(UserInfo.PASSWORD.key)
+        val nickname = intent.getStringExtra(UserInfo.NICKNAME.key)
+        val mbti = intent.getStringExtra(UserInfo.MBTI.key)
 
         binding.loginBtn.setOnClickListener {
             val enteredId = binding.editTextId.text.toString()
@@ -38,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
+
                 enteredPassword != password -> {
                     Snackbar.make(
                         binding.root,
@@ -45,13 +49,14 @@ class LoginActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
+
                 else -> {
-                    Log.d("Login Success","Login Success")
+                    Log.d("Login Success", "Login Success")
                     val intentHome = Intent(this, HomeActivity::class.java).apply {
-                        putExtra(nameId, id)
-                        putExtra(namePassword, password)
-                        putExtra(nameNickname, nickname)
-                        putExtra(nameMbti, mbti)
+                        putExtra(UserInfo.ID.key, id)
+                        putExtra(UserInfo.PASSWORD.key, password)
+                        putExtra(UserInfo.NICKNAME.key, nickname)
+                        putExtra(UserInfo.MBTI.key, mbti)
                     }
                     Snackbar.make(
                         binding.root,
@@ -59,15 +64,12 @@ class LoginActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                     startActivity(intentHome)
-
                 }
             }
-
         }
         binding.goSignupBtn.setOnClickListener {
             val intentSignup = Intent(this, SignUpActivity::class.java)
             startActivity(intentSignup)
         }
-
     }
 }
