@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/image_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:background="#ACA4A4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="82dp"
+        app:layout_constraintDimensionRatio="1:1"
+        />
+
+    <TextView
+        android:id="@+id/text_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/image_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <ImageView
+        android:id="@+id/image_mbti"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/isfp"
+        app:layout_constraintTop_toBottomOf="@id/text_nickname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"/>
+
+
+    <TextView
+        android:id="@+id/text_mbti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MBTI"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/image_mbti"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/text_mbti_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MBTI 설명"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/text_mbti"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+    <LinearLayout
+        android:id="@+id/linear_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_mbti_des"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID :"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linear_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linear_id"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 :"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/text_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀버호"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
