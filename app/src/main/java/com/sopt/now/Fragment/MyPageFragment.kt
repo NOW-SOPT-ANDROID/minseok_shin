@@ -1,4 +1,5 @@
 package com.sopt.now.Fragment
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,8 @@ import androidx.fragment.app.Fragment
 import com.sopt.now.R
 import com.sopt.now.databinding.FragmentMypageBinding
 
-class MyPageFragment(userId:String,userPassword:String,userNickname:String,userMbti:String): Fragment() {
+class MyPageFragment(userId: String, userPassword: String, userNickname: String, userMbti: String) :
+    Fragment() {
     private var _binding: FragmentMypageBinding? = null
     private val binding: FragmentMypageBinding
         get() = requireNotNull(_binding) {
@@ -18,7 +20,6 @@ class MyPageFragment(userId:String,userPassword:String,userNickname:String,userM
     private val password = userPassword
     private val nickname = userNickname
     private val mbti = userMbti
-
 
 
     override fun onCreateView(
@@ -36,19 +37,18 @@ class MyPageFragment(userId:String,userPassword:String,userNickname:String,userM
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.textNickname.text = getString(R.string.nickname,nickname)
-        binding.textMbti.text = getString(R.string.mbti,mbti)
-        binding.textId.text=id
-        binding.textPw.text=password
+        binding.textNickname.text = getString(R.string.nickname, nickname)
+        binding.textMbti.text = getString(R.string.mbti, mbti)
+        binding.textId.text = id
+        binding.textPw.text = password
 
 
-
-        val mbtiImageName = mbti.lowercase() + ".png"
-        val mbtiImageId = mbtiImageName.let { resources.getIdentifier(it, "drawable",null) }
-        if (mbtiImageId != 0) {
-            binding.imageMbti.setImageResource(mbtiImageId)
-
-        }
+//        val mbtiImageName = mbti.lowercase() + ".png"
+//        val mbtiImageId = mbtiImageName.let { resources.getIdentifier(it, "drawable",null) }
+//        if (mbtiImageId != 0) {
+//            binding.imageMbti.setImageResource(mbtiImageId)
+//
+//        }
 
         val mbtiDescriptionMap = mapOf(
             "ISFP" to R.string.isfp,
@@ -73,10 +73,10 @@ class MyPageFragment(userId:String,userPassword:String,userNickname:String,userM
         val mbtiDescriptionResId = mbti.let { mbtiDescriptionMap[it] }
 
 
-        val mbtiDescription = mbtiDescriptionResId?.let { getString(it) } ?: getString(R.string.default_description)
+        val mbtiDescription =
+            mbtiDescriptionResId?.let { getString(it) } ?: getString(R.string.default_description)
 
         binding.textMbtiDes.text = mbtiDescription
-
 
 
     }
