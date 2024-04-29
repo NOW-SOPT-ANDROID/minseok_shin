@@ -1,12 +1,13 @@
-package com.sopt.now.Activity
+package com.sopt.now.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sopt.now.RequestSignUpDto
-import com.sopt.now.ResponseSignUpDto
 import com.sopt.now.ServicePool
+import com.sopt.now.dataClass.RequestSignUpDto
+import com.sopt.now.dataClass.ResponseSignUpDto
 import com.sopt.now.databinding.ActivitySignUpBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,6 +45,8 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT,
                     ).show()
                     Log.d("SignUp", "data: $data, userId: $userId")
+                    val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val errorC = response.code()
                     val errorM = response.message()

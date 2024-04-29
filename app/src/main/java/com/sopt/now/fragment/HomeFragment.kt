@@ -1,4 +1,4 @@
-package com.sopt.now.Fragment
+package com.sopt.now.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sopt.now.Adapter.FriendAdapter
-import com.sopt.now.Adapter.MyProfileAdapter
-import com.sopt.now.DataFile.Friend
-import com.sopt.now.DataFile.MyProfile
 import com.sopt.now.R
+import com.sopt.now.adapter.FriendAdapter
+import com.sopt.now.adapter.MyProfileAdapter
+import com.sopt.now.dataClass.Friend
+import com.sopt.now.dataClass.MyProfile
 import com.sopt.now.databinding.FragmentHomeBinding
 
 class HomeFragment(userncikname: String) : Fragment() {

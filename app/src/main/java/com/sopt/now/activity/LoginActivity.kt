@@ -1,4 +1,4 @@
-package com.sopt.now.Activity
+package com.sopt.now.activity
 
 
 import android.content.Intent

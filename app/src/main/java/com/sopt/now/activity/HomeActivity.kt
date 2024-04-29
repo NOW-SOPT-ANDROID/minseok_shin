@@ -1,17 +1,18 @@
-package com.sopt.now.Activity
+package com.sopt.now.activity
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.sopt.now.Fragment.HomeFragment
-import com.sopt.now.Fragment.MyPageFragment
-import com.sopt.now.Fragment.SearchFragment
 import com.sopt.now.R
 import com.sopt.now.databinding.ActivityHomeBinding
+import com.sopt.now.fragment.HomeFragment
+import com.sopt.now.fragment.MyPageFragment
+import com.sopt.now.fragment.SearchFragment
+
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private val nameId="ID"
+    private val nameId = "ID"
     private val namePassword = "PASSWORD"
     private val nameNickname = "NICKNAME"
     private val nameMbti = "MBTI"
@@ -26,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("HomeActivity","HomeActivity onCreate")
+        Log.d("HomeActivity", "HomeActivity onCreate")
 
 
         userId = intent.getStringExtra(nameId).toString()
@@ -58,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment(userId,userPassword,userNickname,userMbti))
+                    replaceFragment(MyPageFragment(userId, userPassword, userNickname, userMbti))
                     true
                 }
 

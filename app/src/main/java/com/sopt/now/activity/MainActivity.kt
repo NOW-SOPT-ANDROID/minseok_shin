@@ -1,4 +1,4 @@
-package com.sopt.now.Activity
+package com.sopt.now.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import com.sopt.now.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val nameId="ID"
+    private val nameId = "ID"
     private val namePassword = "PASSWORD"
     private val nameNickname = "NICKNAME"
     private val nameMbti = "MBTI"
@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) //TODO: inflate 두 번 하면 오류 공부
         setContentView(binding.root)
-
 
 
         val id = intent.getStringExtra(nameId)
@@ -31,11 +30,10 @@ class MainActivity : AppCompatActivity() {
         ).show()
 
 
-        binding.textNickname.text = getString(R.string.nickname,nickname)
-        binding.textMbti.text = getString(R.string.mbti,mbti)
-        binding.textId.text="$id"
-        binding.textPw.text="$password"
-
+        binding.textNickname.text = getString(R.string.nickname, nickname)
+        binding.textMbti.text = getString(R.string.mbti, mbti)
+        binding.textId.text = "$id"
+        binding.textPw.text = "$password"
 
 
         val mbtiImageName = mbti?.lowercase() + ".png"
@@ -69,7 +67,8 @@ class MainActivity : AppCompatActivity() {
         val mbtiDescriptionResId = mbti?.let { mbtiDescriptionMap[it] }
 
 
-        val mbtiDescription = mbtiDescriptionResId?.let { getString(it) } ?: getString(R.string.default_description)
+        val mbtiDescription =
+            mbtiDescriptionResId?.let { getString(it) } ?: getString(R.string.default_description)
 
         binding.textMbtiDes.text = mbtiDescription
 

@@ -1,4 +1,4 @@
-package com.sopt.now.Fragment
+package com.sopt.now.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
