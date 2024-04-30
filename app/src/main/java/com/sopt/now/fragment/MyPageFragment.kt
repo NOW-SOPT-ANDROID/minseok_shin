@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.sopt.now.R
 import com.sopt.now.databinding.FragmentMypageBinding
 
-class MyPageFragment(userId: String, userPassword: String, userNickname: String, userMbti: String) :
+class MyPageFragment(userId: String, userNickname: String, userMbti: String) :
     Fragment() {
     private var _binding: FragmentMypageBinding? = null
     private val binding: FragmentMypageBinding
@@ -17,7 +17,6 @@ class MyPageFragment(userId: String, userPassword: String, userNickname: String,
         }
 
     private val id = userId
-    private val password = userPassword
     private val nickname = userNickname
     private val mbti = userMbti
 
@@ -40,7 +39,6 @@ class MyPageFragment(userId: String, userPassword: String, userNickname: String,
         binding.textNickname.text = getString(R.string.nickname, nickname)
         binding.textMbti.text = getString(R.string.mbti, mbti)
         binding.textId.text = id
-        binding.textPw.text = password
 
 
 //        val mbtiImageName = mbti.lowercase() + ".png"

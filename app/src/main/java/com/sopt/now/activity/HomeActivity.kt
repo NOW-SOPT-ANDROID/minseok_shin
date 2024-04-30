@@ -13,14 +13,12 @@ import com.sopt.now.fragment.SearchFragment
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val nameId = "ID"
-    private val namePassword = "PASSWORD"
     private val nameNickname = "NICKNAME"
-    private val nameMbti = "MBTI"
+    private val namePhone = "PHONE"
 
     private lateinit var userId: String
-    private lateinit var userPassword: String
     private lateinit var userNickname: String
-    private lateinit var userMbti: String
+    private lateinit var userPhone: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +29,8 @@ class HomeActivity : AppCompatActivity() {
 
 
         userId = intent.getStringExtra(nameId).toString()
-        userPassword = intent.getStringExtra(namePassword).toString()
         userNickname = intent.getStringExtra(nameNickname).toString()
-        userMbti = intent.getStringExtra(nameMbti).toString()
+        userPhone = intent.getStringExtra(namePhone).toString()
 
         clickBottomNavigation()
 
@@ -59,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment(userId, userPassword, userNickname, userMbti))
+                    replaceFragment(MyPageFragment(userId, userNickname, userPhone))
                     true
                 }
 

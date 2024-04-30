@@ -1,7 +1,9 @@
 package com.sopt.now
 
+import com.sopt.now.dataClass.RequestInfoDto
 import com.sopt.now.dataClass.RequestLogInDto
 import com.sopt.now.dataClass.RequestSignUpDto
+import com.sopt.now.dataClass.ResponseInfoDto
 import com.sopt.now.dataClass.ResponseLogInDto
 import com.sopt.now.dataClass.ResponseSignUpDto
 import retrofit2.Call
@@ -15,6 +17,9 @@ interface AuthService {
         @Body request: RequestSignUpDto,
     ): Call<ResponseSignUpDto>
 
-    @POST("login")
-    fun login(@Body loginRequest: RequestLogInDto): Call<ResponseLogInDto>
+    @POST("member/login")
+    fun login(@Body request: RequestLogInDto): Call<ResponseLogInDto>
+
+    @POST("member/info")
+    fun info(@Body request: RequestInfoDto): Call<ResponseInfoDto>
 }
