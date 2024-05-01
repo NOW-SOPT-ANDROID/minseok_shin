@@ -14,7 +14,7 @@ import com.sopt.now.dataClass.Friend
 import com.sopt.now.dataClass.MyProfile
 import com.sopt.now.databinding.FragmentHomeBinding
 
-class HomeFragment(userncikname: String) : Fragment() {
+class HomeFragment(userNickname: String) : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) {
@@ -32,18 +32,18 @@ class HomeFragment(userncikname: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myprofileAdapter = MyProfileAdapter()
+        val myProfileAdapter = MyProfileAdapter()
         val friendAdapter = FriendAdapter()
 
 
-        val concatAdapter = ConcatAdapter(myprofileAdapter, friendAdapter)
+        val concatAdapter = ConcatAdapter(myProfileAdapter, friendAdapter)
 
 
         binding.rvFriends.run {
             adapter = concatAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        myprofileAdapter.setMyProfile(myProfile)
+        myProfileAdapter.setMyProfile(myProfile)
         friendAdapter.setFriendList(mockFriendList)
 
     }
@@ -56,11 +56,11 @@ class HomeFragment(userncikname: String) : Fragment() {
     private val myProfile = listOf(
         MyProfile(
             profileImage = R.drawable.baseline_person_outline_24,
-            name = userncikname,
+            name = userNickname,
             selfDescription = "내 프로필 소개 텍스트"
         )
     )
-    val friendIcon = R.drawable.baseline_person_24
+    private val friendIcon = R.drawable.baseline_person_24
 
     private val mockFriendList = listOf(
         Friend(

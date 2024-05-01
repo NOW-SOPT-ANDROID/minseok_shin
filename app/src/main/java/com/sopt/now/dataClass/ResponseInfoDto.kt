@@ -17,5 +17,5 @@ data class ResponseInfoDto(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: UserInfo?,
+    val data: UserInfo,
 )

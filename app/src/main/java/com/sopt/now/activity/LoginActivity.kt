@@ -6,9 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
-import com.sopt.now.dataClass.RequestInfoDto
 import com.sopt.now.dataClass.RequestLogInDto
-import com.sopt.now.dataClass.ResponseInfoDto
 import com.sopt.now.dataClass.ResponseLogInDto
 import com.sopt.now.databinding.ActivityLoginBinding
 import retrofit2.Call
@@ -40,41 +38,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun searchInfo(id: String?) {
-        val infoRequest = RequestInfoDto(id!!)
-        authService.info(infoRequest).enqueue(object : Callback<ResponseInfoDto> {
-            override fun onResponse(
-                call: Call<ResponseInfoDto>,
-                response: Response<ResponseInfoDto>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
-                    Log.d("LoginActivity", "Response successful: ${response.body()}")
-                    val userInfo = response.body()!!.data
-                    val intentHome = Intent(this@LoginActivity, HomeActivity::class.java).apply {
-                        putExtra(nameId, userInfo?.authenticationId)
-                        putExtra(nameNickname, userInfo?.nickname)
-                        putExtra(namePhone, userInfo?.phone)
-                    }
-                    startActivity(intentHome)
-
-                } else {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "사용자 정보 조회 실패 ${response.body()?.code}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseInfoDto>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "조회 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
-    }
-
 
     private fun login() {
         val id = binding.editTextId.text.toString()
@@ -87,13 +50,18 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseLogInDto>
             ) {
                 if (response.isSuccessful) {
-                    val memberId = response.headers()["Location"]
-//                    Toast.makeText(
-//                        this@LoginActivity,
-//                        "로그인 성공 memberID: $memberId",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-                    searchInfo(memberId)
+                    val memberId = response.headers()["Location"]!!.toInt()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "로그인 성공 memberID: $memberId",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intentHome = Intent(this@LoginActivity, HomeActivity::class.java).apply {
+                        putExtra("memberId", memberId)
+                    }
+                    startActivity(intentHome)
+                    Log.d("LoginActivity", "put $memberId to HomeActivity")
+
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }

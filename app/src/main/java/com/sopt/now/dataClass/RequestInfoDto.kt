@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequestInfoDto(
-    @SerialName("authenticationId")
-    val authenticationId: String,
-
-    )
+    @SerialName("memberId")
+    val memberId: Int,
+)
