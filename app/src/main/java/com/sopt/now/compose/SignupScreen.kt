@@ -1,7 +1,5 @@
 package com.sopt.now.compose
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,14 +27,15 @@ import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 @Composable
 fun SignupScreen(navController: NavController) {
-    var textid by remember { mutableStateOf("") }
-    var textpw by remember { mutableStateOf("") }
-    var textnn by remember { mutableStateOf("") }
-    var textmbti by remember { mutableStateOf("") }
+    var textId by remember { mutableStateOf("") }
+    var textPw by remember { mutableStateOf("") }
+    var textNickname by remember { mutableStateOf("") }
+    var textPhone by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     val navViewModel: NavViewModel =
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
+
 
 
     NOWSOPTAndroidTheme {
@@ -48,8 +47,8 @@ fun SignupScreen(navController: NavController) {
             Text(text = "Sign Up")
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
-                value = textid,
-                onValueChange = { textid = it },
+                value = textId,
+                onValueChange = { textId = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
@@ -59,8 +58,8 @@ fun SignupScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
-                value = textpw,
-                onValueChange = { textpw = it },
+                value = textPw,
+                onValueChange = { textPw = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
@@ -72,8 +71,8 @@ fun SignupScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
-                value = textnn,
-                onValueChange = { textnn = it },
+                value = textNickname,
+                onValueChange = { textNickname = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
@@ -83,8 +82,8 @@ fun SignupScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
-                value = textmbti,
-                onValueChange = { textmbti = it },
+                value = textPhone,
+                onValueChange = { textPhone = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
