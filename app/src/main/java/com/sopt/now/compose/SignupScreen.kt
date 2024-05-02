@@ -72,7 +72,7 @@ fun SignupScreen(navController: NavController) {
                         Toast.LENGTH_SHORT,
                     ).show()
                     Log.d("SignUp", "data: $data, userId: $userId")
-                    navController.navigate(Routes.Home.route)
+                    navController.navigate(Routes.Login.route)
                 } else {
                     val errorC = response.code()
                     val errorM = response.message()
