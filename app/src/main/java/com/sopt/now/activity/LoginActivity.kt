@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                     val intentHome = Intent(this@LoginActivity, HomeActivity::class.java).apply {
                         putExtra("memberId", memberId)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     startActivity(intentHome)
                     Log.d("LoginActivity", "put $memberId to HomeActivity")
