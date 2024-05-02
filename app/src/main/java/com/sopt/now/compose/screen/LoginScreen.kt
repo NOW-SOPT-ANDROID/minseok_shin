@@ -1,4 +1,4 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.screen
 
 
 import android.util.Log
@@ -26,7 +26,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.sopt.now.compose.LocalNavGraphViewModelStoreOwner
+import com.sopt.now.compose.NavViewModel
+import com.sopt.now.compose.Routes
+import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.data.ResponseLogInDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
@@ -45,6 +50,8 @@ fun LoginScreen(
     val context = LocalContext.current
 
 
+    val navViewModel: NavViewModel =
+        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
     val authService by lazy { ServicePool.authService }
 
 
@@ -66,13 +73,14 @@ fun LoginScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                     onLoginSuccess(true)
+                    navViewModel.memberId = memberId
                     navController.navigate(Routes.Home.route) {
                         popUpTo(Routes.Login.route) {
                             inclusive = true
                         }
                         launchSingleTop = true
                     }
-                    Log.d("LoginActivity", "put $memberId to HomeActivity")
+                    Log.d("LoginActivity", "memberId of viewModel :  $memberId")
 
                 } else {
                     Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()

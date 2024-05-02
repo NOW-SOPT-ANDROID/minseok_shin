@@ -6,6 +6,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.sopt.now.compose.screen.HomeScreen
+import com.sopt.now.compose.screen.LoginScreen
+import com.sopt.now.compose.screen.SearchScreen
+import com.sopt.now.compose.screen.SignupScreen
 
 sealed class Routes(val route: String) {
     data object Login : Routes("Login")

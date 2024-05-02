@@ -1,4 +1,4 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.screen
 
 import android.util.Log
 import android.widget.Toast
@@ -23,6 +23,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.sopt.now.compose.Routes
+import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestSignUpDto
 import com.sopt.now.compose.data.ResponseSignUpDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme

@@ -1,5 +1,7 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,9 +17,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +33,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sopt.now.compose.Friend
+import com.sopt.now.compose.LocalNavGraphViewModelStoreOwner
+import com.sopt.now.compose.MyProfile
+import com.sopt.now.compose.NavViewModel
+import com.sopt.now.compose.R
+import com.sopt.now.compose.ServicePool.authService
+import com.sopt.now.compose.data.ResponseInfoDto
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 @Composable
@@ -34,11 +52,38 @@ fun HomeScreen() {
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
     val myImage = R.drawable.baseline_person_24
+    var myName by remember {
+        mutableStateOf("")
+    }
     val ybDescription = stringResource(id = R.string.yb)
     val obDescription = stringResource(id = R.string.ob)
     val partDescription = stringResource(id = R.string.part)
     val friendImage = R.drawable.baseline_person_outline_24
 
+    val context = LocalContext.current
+
+    fun searchInfo(memberId: Int) {
+        authService.info(memberId).enqueue(object : Callback<ResponseInfoDto> {
+            override fun onResponse(
+                call: Call<ResponseInfoDto>,
+                response: Response<ResponseInfoDto>
+            ) {
+                if (response.isSuccessful) {
+                    myName = response.body()!!.data.nickname
+                } else {
+                    Log.d("HomeActivity", "response ${response.body()?.message}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseInfoDto>, t: Throwable) {
+                Toast.makeText(context, "조회 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+    }
+    LaunchedEffect(Unit) {
+        searchInfo(navViewModel.memberId)
+    }
 
     val friendList = listOf(
         Friend(
@@ -129,7 +174,7 @@ fun HomeScreen() {
 
     val myProfile = MyProfile(
         profileImageRes = myImage,
-        name = navViewModel.userNickname,
+        name = myName,
         description = ybDescription
     )
 
@@ -164,18 +209,18 @@ fun MyProfileItem(myProfile: MyProfile) {
             )
             Spacer(modifier = Modifier.width(8.dp))
 
-                Text(
-                    text = myProfile.name,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.ExtraBold
-                )
-                Text(
-                    text = myProfile.description,
-                    fontSize = 16.sp,
-                    color = Color.DarkGray,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
-                )
+            Text(
+                text = myProfile.name,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.ExtraBold
+            )
+            Text(
+                text = myProfile.description,
+                fontSize = 16.sp,
+                color = Color.DarkGray,
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth()
+            )
 
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -199,17 +244,17 @@ fun FriendProfileItem(friend: Friend) {
             )
             Spacer(modifier = Modifier.width(8.dp))
 
-                Text(
-                    text = friend.name,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.DarkGray,
-                )
-                Text(
-                    text = friend.description,
-                    color = Color.DarkGray,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
-                )
+            Text(
+                text = friend.name,
+                fontWeight = FontWeight.Bold,
+                color = Color.DarkGray,
+            )
+            Text(
+                text = friend.description,
+                color = Color.DarkGray,
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth()
+            )
 
         }
         Spacer(modifier = Modifier.height(8.dp))

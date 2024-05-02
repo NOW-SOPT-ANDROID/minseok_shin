@@ -2,7 +2,7 @@ package com.sopt.now.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -21,9 +21,6 @@ val LocalNavGraphViewModelStoreOwner = staticCompositionLocalOf<ViewModelStoreOw
 }
 
 class NavViewModel : ViewModel() {
-    var userID by mutableStateOf("")
-    var userPassword by mutableStateOf("")
-    var userNickname by mutableStateOf("")
-    var userMBTI by mutableStateOf("")
+    var memberId by mutableIntStateOf(-1)
 }
 
