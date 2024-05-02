@@ -2,10 +2,13 @@ package com.sopt.now.compose
 
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.data.RequestSignUpDto
+import com.sopt.now.compose.data.ResponseInfoDto
 import com.sopt.now.compose.data.ResponseLogInDto
 import com.sopt.now.compose.data.ResponseSignUpDto
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
@@ -18,4 +21,7 @@ interface AuthService {
     fun logIn(
         @Body request: RequestLogInDto,
     ): Call<ResponseLogInDto>
+
+    @GET("member/info")
+    fun info(@Header("memberId") memberId: Int): Call<ResponseInfoDto>
 }

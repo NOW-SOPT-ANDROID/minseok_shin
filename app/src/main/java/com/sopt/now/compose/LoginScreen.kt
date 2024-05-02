@@ -26,7 +26,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.data.ResponseLogInDto
@@ -45,8 +44,6 @@ fun LoginScreen(
     var textPw by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    val navViewModel: NavViewModel =
-        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
     val authService by lazy { ServicePool.authService }
 
@@ -56,7 +53,7 @@ fun LoginScreen(
         val password = textPw
         val loginRequest = RequestLogInDto(id, password)
 
-        authService.login(loginRequest).enqueue(object : Callback<ResponseLogInDto> {
+        authService.logIn(loginRequest).enqueue(object : Callback<ResponseLogInDto> {
             override fun onResponse(
                 call: Call<ResponseLogInDto>,
                 response: Response<ResponseLogInDto>
@@ -69,7 +66,12 @@ fun LoginScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                     onLoginSuccess(true)
-                    navController.navigate(Routes.Home.route)
+                    navController.navigate(Routes.Home.route) {
+                        popUpTo(Routes.Login.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                     Log.d("LoginActivity", "put $memberId to HomeActivity")
 
                 } else {
