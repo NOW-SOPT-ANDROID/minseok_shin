@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseSignUpDto(
+data class ResponseLogInDto(
     @SerialName("code")
     val status: Int,
     @SerialName("message")

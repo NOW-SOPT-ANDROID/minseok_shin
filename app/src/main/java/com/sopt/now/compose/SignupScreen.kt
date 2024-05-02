@@ -34,7 +34,7 @@ fun SignupScreen(navController: NavController) {
     var textnn by remember { mutableStateOf("") }
     var textmbti by remember { mutableStateOf("") }
     val context = LocalContext.current
-    
+
     val navViewModel: NavViewModel =
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
@@ -88,7 +88,7 @@ fun SignupScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
-                label = { Text("MBTI를 입력해주세요") },
+                label = { Text("전화번호를 입력해주세요") },
                 placeholder = { Text("") },
                 singleLine = true
             )
@@ -96,36 +96,7 @@ fun SignupScreen(navController: NavController) {
             Button(
                 modifier = Modifier.padding(10.dp),
                 onClick = {
-                    when {
-                        textid.length !in 6..10 -> {
-                            Toast.makeText(context, "아이디는 6~10글자여야 합니다.", Toast.LENGTH_SHORT).show()
-                        }
 
-                        textpw.length !in 8..12 -> {
-                            Toast.makeText(context, "비밀번호는 8~12글자여야 합니다.", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        textnn.trim().isEmpty() -> {
-                            Toast.makeText(context, "닉네임은 한 글자 이상이어야 합니다.", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        !isValidMBTIFormat(textmbti) -> {
-                            Toast.makeText(context, "MBTI의 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
-                        }
-
-                        else -> {
-                            Log.d("SignUp", "SignUp Success")
-                            Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
-                            navViewModel.userID = textid
-                            navViewModel.userPassword = textpw
-                            navViewModel.userNickname = textnn
-                            navViewModel.userMBTI = textmbti
-                            navController.navigate(Routes.Login.route)
-                            Log.d("SignUp", "Go LoginScreen")
-                        }
-                    }
                 }
             ) {
                 Text(text = "회원가입 하기")
