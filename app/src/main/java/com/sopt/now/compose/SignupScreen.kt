@@ -1,5 +1,7 @@
 package com.sopt.now.compose
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,9 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.sopt.now.compose.data.RequestSignUpDto
+import com.sopt.now.compose.data.ResponseSignUpDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 @Composable
@@ -33,8 +39,57 @@ fun SignupScreen(navController: NavController) {
     var textPhone by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    val navViewModel: NavViewModel =
-        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
+
+    val authService by lazy { ServicePool.authService }
+
+    fun getSignUpRequestDto(): RequestSignUpDto {
+        val id = textId
+        val password = textPw
+        val nickname = textNickname
+        val phoneNumber = textPhone
+        return RequestSignUpDto(
+            authenticationId = id,
+            password = password,
+            nickname = nickname,
+            phone = phoneNumber
+        )
+    }
+
+
+    fun signUp() {
+        val signUpRequest = getSignUpRequestDto()
+        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseSignUpDto> {
+            override fun onResponse(
+                call: Call<ResponseSignUpDto>,
+                response: Response<ResponseSignUpDto>,
+            ) {
+                if (response.isSuccessful) {
+                    val data: ResponseSignUpDto? = response.body()
+                    val userId = response.headers()["location"]
+                    Toast.makeText(
+                        context,
+                        "회원가입 성공 유저의 ID는 $userId 입니둥",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    Log.d("SignUp", "data: $data, userId: $userId")
+                    navController.navigate(Routes.Home.route)
+                } else {
+                    val errorC = response.code()
+                    val errorM = response.message()
+                    Toast.makeText(
+                        context,
+                        "회원가입 실패 $errorC , $errorM",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
+                Toast.makeText(context, "서버 에러 발생 ", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
 
 
@@ -95,7 +150,7 @@ fun SignupScreen(navController: NavController) {
             Button(
                 modifier = Modifier.padding(10.dp),
                 onClick = {
-
+                    signUp()
                 }
             ) {
                 Text(text = "회원가입 하기")
@@ -104,8 +159,8 @@ fun SignupScreen(navController: NavController) {
     }
 }
 
-private fun isValidMBTIFormat(mbti: String): Boolean {
-    val validMBTIRegex = Regex("[EI][NS][FT][JP]")
-    return mbti.uppercase().matches(validMBTIRegex)
-}
+//private fun isValidMBTIFormat(mbti: String): Boolean {
+//    val validMBTIRegex = Regex("[EI][NS][FT][JP]")
+//    return mbti.uppercase().matches(validMBTIRegex)
+//}
 
