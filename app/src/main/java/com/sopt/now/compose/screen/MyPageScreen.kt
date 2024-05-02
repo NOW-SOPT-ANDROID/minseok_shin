@@ -1,4 +1,4 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.screen
 
 import android.util.Log
 import android.widget.Toast
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,14 +25,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.now.compose.ServicePool.authService
+import androidx.navigation.NavHostController
+import com.sopt.now.compose.LocalNavGraphViewModelStoreOwner
+import com.sopt.now.compose.NavViewModel
+import com.sopt.now.compose.R
+import com.sopt.now.compose.Routes
+import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.ResponseInfoDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun MyPageScreen() {
+fun MyPageScreen(navController: NavHostController) {
     val navViewModel: NavViewModel =
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
@@ -46,6 +52,9 @@ fun MyPageScreen() {
     var userPhone by remember {
         mutableStateOf("")
     }
+
+    val authService by lazy { ServicePool.authService }
+
 
     Log.d("MyPageScreen", "MyPageScreen start")
 
@@ -82,6 +91,7 @@ fun MyPageScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(100.dp))
+
         Row {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -92,7 +102,12 @@ fun MyPageScreen() {
                 Text(text = "닉네임: $userNickname")
                 Text(text = "ID : $userId")
                 Text(text = "Phone: $userPhone")
+                Spacer(modifier = Modifier.padding(20.dp))
+                Button(onClick = { navController.navigate(Routes.Password.route) }) {
+                    Text(text = "비밀번호 변경")
+                }
             }
+
         }
 
 

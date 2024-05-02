@@ -6,8 +6,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.sopt.now.compose.screen.ChangePasswordScreen
 import com.sopt.now.compose.screen.HomeScreen
 import com.sopt.now.compose.screen.LoginScreen
+import com.sopt.now.compose.screen.MyPageScreen
 import com.sopt.now.compose.screen.SearchScreen
 import com.sopt.now.compose.screen.SignupScreen
 
@@ -17,6 +19,7 @@ sealed class Routes(val route: String) {
     data object MyPage : Routes("MyPage")
     data object Home : Routes("Home")
     data object Search : Routes("Search")
+    data object Password : Routes("Password")
 
 }
 
@@ -39,9 +42,14 @@ fun NaviGraph(
 
             composable(
                 route = Routes.MyPage.route,
+            ) {
+                MyPageScreen(navController = navController)
+            }
 
-                ) {
-                MyPageScreen()
+            composable(
+                route = Routes.Password.route,
+            ) {
+                ChangePasswordScreen(navController = navController)
             }
 
             composable(
