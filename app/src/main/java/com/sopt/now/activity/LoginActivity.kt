@@ -18,9 +18,6 @@ class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val authService by lazy { ServicePool.authService }
 
-    private val nameId = "ID"
-    private val nameNickname = "NICKNAME"
-    private val namePhone = "PHONE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

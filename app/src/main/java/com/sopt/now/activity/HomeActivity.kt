@@ -24,10 +24,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var userNickname: String
     private lateinit var userPhone: String
 
-//    var userId = ""
-//    var userNickname = ""
-//    var userPhone = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
                     userId = response.body()!!.data.authenticationId
                     userNickname = response.body()!!.data.nickname
                     userPhone = response.body()!!.data.phone
-                    clickBottomNavigation()
+                    clickBottomNavigation(memberId)
                     val currentFragment =
                         supportFragmentManager.findFragmentById(binding.fcvHome.id)
                     if (currentFragment == null) {
@@ -77,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun clickBottomNavigation() {
+    private fun clickBottomNavigation(memberId: Int) {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -91,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment(userId, userNickname, userPhone))
+                    replaceFragment(MyPageFragment(userId, userNickname, userPhone, memberId))
                     true
                 }
 

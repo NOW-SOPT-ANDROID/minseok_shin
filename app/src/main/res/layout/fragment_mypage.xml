@@ -41,7 +41,7 @@
 
 
     <TextView
-        android:id="@+id/text_mbti"
+        android:id="@+id/text_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -52,16 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_nickname" />
 
-    <TextView
-        android:id="@+id/text_mbti_des"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="MBTI 설명"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_mbti" />
 
     <LinearLayout
         android:id="@+id/linear_id"
@@ -69,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/text_mbti_des">
+        app:layout_constraintTop_toBottomOf="@id/text_phone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,6 +99,21 @@
             android:layout_marginStart="10dp"
             android:text="비밀번호"
             android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_pw">
+
+        <Button
+            android:id="@+id/change_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 변경" />
     </LinearLayout>
 
 
