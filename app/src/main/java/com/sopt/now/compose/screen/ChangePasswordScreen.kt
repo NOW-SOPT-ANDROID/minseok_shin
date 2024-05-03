@@ -85,7 +85,7 @@ fun ChangePasswordScreen(navController: NavHostController) {
                         ).show()
 
                         navController.navigate(Routes.Login.route) {
-                            popUpTo(Routes.Login.route) {
+                            popUpTo(Routes.Password.route) {
                                 inclusive = true
                             }
                             launchSingleTop = true
