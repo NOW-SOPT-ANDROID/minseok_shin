@@ -31,7 +31,7 @@ import com.sopt.now.compose.NavViewModel
 import com.sopt.now.compose.Routes
 import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestPasswordDto
-import com.sopt.now.compose.data.ResponsePasswordDto
+import com.sopt.now.compose.data.ResponseDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,10 +72,10 @@ fun ChangePasswordScreen(navController: NavHostController) {
     fun changePassword(memberId: Int) {
         val passwordRequest = getPasswordRequestDto()
         authService.changePassword(memberId, passwordRequest)
-            .enqueue(object : Callback<ResponsePasswordDto> {
+            .enqueue(object : Callback<ResponseDto> {
                 override fun onResponse(
-                    call: Call<ResponsePasswordDto>,
-                    response: Response<ResponsePasswordDto>,
+                    call: Call<ResponseDto>,
+                    response: Response<ResponseDto>,
                 ) {
                     if (response.isSuccessful) {
                         Toast.makeText(
@@ -95,7 +95,7 @@ fun ChangePasswordScreen(navController: NavHostController) {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponsePasswordDto>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                     Toast.makeText(context, "비밀번호 변경 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

@@ -33,7 +33,7 @@ import com.sopt.now.compose.NavViewModel
 import com.sopt.now.compose.Routes
 import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestLogInDto
-import com.sopt.now.compose.data.ResponseLogInDto
+import com.sopt.now.compose.data.ResponseDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,10 +60,10 @@ fun LoginScreen(
         val password = textPw
         val loginRequest = RequestLogInDto(id, password)
 
-        authService.logIn(loginRequest).enqueue(object : Callback<ResponseLogInDto> {
+        authService.logIn(loginRequest).enqueue(object : Callback<ResponseDto> {
             override fun onResponse(
-                call: Call<ResponseLogInDto>,
-                response: Response<ResponseLogInDto>
+                call: Call<ResponseDto>,
+                response: Response<ResponseDto>
             ) {
                 if (response.isSuccessful) {
                     val memberId = response.headers()["Location"]!!.toInt()
@@ -87,7 +87,7 @@ fun LoginScreen(
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLogInDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                 Toast.makeText(context, "로그인 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
                     .show()
             }

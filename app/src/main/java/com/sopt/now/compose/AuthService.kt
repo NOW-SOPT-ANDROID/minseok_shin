@@ -3,10 +3,8 @@ package com.sopt.now.compose
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.data.RequestPasswordDto
 import com.sopt.now.compose.data.RequestSignUpDto
+import com.sopt.now.compose.data.ResponseDto
 import com.sopt.now.compose.data.ResponseInfoDto
-import com.sopt.now.compose.data.ResponseLogInDto
-import com.sopt.now.compose.data.ResponsePasswordDto
-import com.sopt.now.compose.data.ResponseSignUpDto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,12 +16,12 @@ interface AuthService {
     @POST("member/join")
     fun signUp(
         @Body request: RequestSignUpDto,
-    ): Call<ResponseSignUpDto>
+    ): Call<ResponseDto>
 
     @POST("member/login")
     fun logIn(
         @Body request: RequestLogInDto,
-    ): Call<ResponseLogInDto>
+    ): Call<ResponseDto>
 
     @GET("member/info")
     fun info(@Header("memberId") memberId: Int): Call<ResponseInfoDto>
@@ -32,5 +30,5 @@ interface AuthService {
     fun changePassword(
         @Header("memberId") memberId: Int,
         @Body request: RequestPasswordDto
-    ): Call<ResponsePasswordDto>
+    ): Call<ResponseDto>
 }

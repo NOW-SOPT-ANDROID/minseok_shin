@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.sopt.now.compose.Routes
 import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestSignUpDto
-import com.sopt.now.compose.data.ResponseSignUpDto
+import com.sopt.now.compose.data.ResponseDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,13 +60,13 @@ fun SignupScreen(navController: NavController) {
 
     fun signUp() {
         val signUpRequest = getSignUpRequestDto()
-        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseSignUpDto> {
+        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseDto> {
             override fun onResponse(
-                call: Call<ResponseSignUpDto>,
-                response: Response<ResponseSignUpDto>,
+                call: Call<ResponseDto>,
+                response: Response<ResponseDto>,
             ) {
                 if (response.isSuccessful) {
-                    val data: ResponseSignUpDto? = response.body()
+                    val data: ResponseDto? = response.body()
                     val userId = response.headers()["location"]
                     Toast.makeText(
                         context,
@@ -86,7 +86,7 @@ fun SignupScreen(navController: NavController) {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                 Toast.makeText(context, "서버 에러 발생 ", Toast.LENGTH_SHORT).show()
             }
         })
