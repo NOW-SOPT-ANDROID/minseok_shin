@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
 import com.sopt.now.dataClass.RequestSignUpDto
-import com.sopt.now.dataClass.ResponseSignUpDto
+import com.sopt.now.dataClass.ResponseDto
 import com.sopt.now.databinding.ActivitySignUpBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,13 +31,13 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUp() {
         val signUpRequest = getSignUpRequestDto()
-        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseSignUpDto> {
+        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseDto> {
             override fun onResponse(
-                call: Call<ResponseSignUpDto>,
-                response: Response<ResponseSignUpDto>,
+                call: Call<ResponseDto>,
+                response: Response<ResponseDto>,
             ) {
                 if (response.isSuccessful) {
-                    val data: ResponseSignUpDto? = response.body()
+                    val data: ResponseDto? = response.body()
                     val userId = response.headers()["location"]
                     Toast.makeText(
                         this@SignUpActivity,
@@ -58,7 +58,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                 Toast.makeText(this@SignUpActivity, "서버 에러 발생 ", Toast.LENGTH_SHORT).show()
             }
         })

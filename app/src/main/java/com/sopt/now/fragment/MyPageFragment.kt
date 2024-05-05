@@ -23,7 +23,7 @@ class MyPageFragment(userId: String, userNickname: String, userPhone: String, me
     private val nickname = userNickname
     private val phone = userPhone
 
-    val memberID = memberId
+    private val memberID = memberId
 
 
     override fun onCreateView(

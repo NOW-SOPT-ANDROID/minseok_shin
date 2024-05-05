@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
 import com.sopt.now.dataClass.RequestPasswordDto
-import com.sopt.now.dataClass.ResponsePasswordDto
+import com.sopt.now.dataClass.ResponseDto
 import com.sopt.now.databinding.ActivityChangePasswordBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,10 +48,10 @@ class ChangePasswordActivity : AppCompatActivity() {
     private fun changePassword(memberId: Int) {
         val passwordRequest = getPasswordRequestDto()
         authService.changePassword(memberId, passwordRequest)
-            .enqueue(object : Callback<ResponsePasswordDto> {
+            .enqueue(object : Callback<ResponseDto> {
                 override fun onResponse(
-                    call: Call<ResponsePasswordDto>,
-                    response: Response<ResponsePasswordDto>,
+                    call: Call<ResponseDto>,
+                    response: Response<ResponseDto>,
                 ) {
                     if (response.isSuccessful) {
                         Toast.makeText(
@@ -73,7 +73,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponsePasswordDto>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                     Toast.makeText(this@ChangePasswordActivity, "서버 에러 발생 ", Toast.LENGTH_SHORT)
                         .show()
                 }

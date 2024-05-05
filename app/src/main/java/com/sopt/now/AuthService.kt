@@ -4,7 +4,7 @@ import com.sopt.now.dataClass.RequestLogInDto
 import com.sopt.now.dataClass.RequestPasswordDto
 import com.sopt.now.dataClass.RequestSignUpDto
 import com.sopt.now.dataClass.ResponseInfoDto
-import com.sopt.now.dataClass.ResponseLogInDto
+import com.sopt.now.dataClass.ResponseDto
 import com.sopt.now.dataClass.ResponsePasswordDto
 import com.sopt.now.dataClass.ResponseSignUpDto
 import retrofit2.Call
@@ -22,7 +22,7 @@ interface AuthService {
     ): Call<ResponseSignUpDto>
 
     @POST("member/login")
-    fun login(@Body request: RequestLogInDto): Call<ResponseLogInDto>
+    fun login(@Body request: RequestLogInDto): Call<ResponseDto>
 
     @GET("member/info")
     fun info(@Header("memberId") memberId: Int): Call<ResponseInfoDto>

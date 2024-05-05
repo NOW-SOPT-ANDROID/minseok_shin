@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
 import com.sopt.now.dataClass.RequestLogInDto
-import com.sopt.now.dataClass.ResponseLogInDto
+import com.sopt.now.dataClass.ResponseDto
 import com.sopt.now.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,10 +41,10 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.editTextPw.text.toString()
         val loginRequest = RequestLogInDto(id, password)
 
-        authService.login(loginRequest).enqueue(object : Callback<ResponseLogInDto> {
+        authService.login(loginRequest).enqueue(object : Callback<ResponseDto> {
             override fun onResponse(
-                call: Call<ResponseLogInDto>,
-                response: Response<ResponseLogInDto>
+                call: Call<ResponseDto>,
+                response: Response<ResponseDto>
             ) {
                 if (response.isSuccessful) {
                     val memberId = response.headers()["Location"]!!.toInt()
@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLogInDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "로그인 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
                     .show()
             }
