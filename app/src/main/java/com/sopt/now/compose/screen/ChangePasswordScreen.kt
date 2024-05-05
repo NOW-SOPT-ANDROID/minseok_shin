@@ -38,7 +38,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun ChangePasswordScreen(navController: NavHostController) {
+fun ChangePasswordScreen(
+    navController: NavHostController,
+) {
 
     var previousPassword by remember {
         mutableStateOf("")
@@ -83,9 +85,8 @@ fun ChangePasswordScreen(navController: NavHostController) {
                             "비밀번호 변경 완료! 새 비밀번호로 로그인 하세요",
                             Toast.LENGTH_SHORT
                         ).show()
-
                         navController.navigate(Routes.Login.route) {
-                            popUpTo(Routes.Password.route) {
+                            popUpTo(Routes.Login.route) {
                                 inclusive = true
                             }
                             launchSingleTop = true

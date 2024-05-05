@@ -43,7 +43,7 @@ fun NaviGraph(
             composable(
                 route = Routes.MyPage.route,
             ) {
-                MyPageScreen(navController = navController)
+                MyPageScreen(navController = navController, onLoginSuccess = onLoginSuccess)
             }
 
             composable(

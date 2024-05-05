@@ -37,7 +37,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun MyPageScreen(navController: NavHostController) {
+fun MyPageScreen(navController: NavHostController, onLoginSuccess: (Boolean) -> Unit) {
     val navViewModel: NavViewModel =
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
@@ -103,7 +103,10 @@ fun MyPageScreen(navController: NavHostController) {
                 Text(text = "ID : $userId")
                 Text(text = "Phone: $userPhone")
                 Spacer(modifier = Modifier.padding(20.dp))
-                Button(onClick = { navController.navigate(Routes.Password.route) }) {
+                Button(onClick = {
+                    onLoginSuccess(false)
+                    navController.navigate(Routes.Password.route)
+                }) {
                     Text(text = "비밀번호 변경")
                 }
             }
