@@ -17,4 +17,13 @@
     <string name="entp">풍부한 상상력으로 지적인 도전을 즐기며 뜨거운 논쟁을 즐기는 변론가</string>
     <string name="entj">비전을 갖고 타인을 동기 부여하는 리더쉽을 지닌 대담한 통솔자</string>
     <string name="error">오류</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="mypage">MyPage</string>
+    <string name="yb">34기 안드로이드 YB</string>
+    <string name="ob">34기 안드로이드 OB</string>
+    <string name="part">나는 34기 안드로이드 파트장이고 이건 한 줄 넘어갔을 때 어떻게 되는지 확인하려는 테스트용 텍스트야!</string>
+    <string name="first_fragment_label">Your first fragment label</string>
+    <string name="second_fragment_label">Your second fragment label</string>
+
 </resources>
