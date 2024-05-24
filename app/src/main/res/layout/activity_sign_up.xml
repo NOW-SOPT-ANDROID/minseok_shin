@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".activity.SignUpActivity">
 
     <LinearLayout
         android:id="@+id/linear"
@@ -109,17 +109,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="MBTI"
+                android:text="전화번호"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edit_text_mbti"
+                android:id="@+id/edit_text_phone"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:autofillHints="MBTI를 입력해주세요."
-                android:hint="MBTI를 입력해주세요." />
+                android:autofillHints="전화번호를 입력해주세요."
+                android:hint="전화번호를 입력해주세요." />
 
         </LinearLayout>
 
@@ -131,12 +131,12 @@
         android:id="@+id/signup_btn"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="150dp"
         android:text="회원가입 하기"
-        app:layout_constraintTop_toBottomOf="@id/linear"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
