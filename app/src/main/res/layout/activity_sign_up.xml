@@ -81,7 +81,7 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/textnn"
+                android:id="@+id/text_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -90,7 +90,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edit_text_nn"
+                android:id="@+id/edit_text_nickname"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -105,7 +105,7 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/text_mbti"
+                android:id="@+id/text_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

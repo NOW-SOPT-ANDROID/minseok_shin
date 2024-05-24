@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.sopt.now.R
 import com.sopt.now.activity.ChangePasswordActivity
-import com.sopt.now.compose.R
-import com.sopt.now.compose.databinding.FragmentMypageBinding
+import com.sopt.now.databinding.FragmentMypageBinding
 
 class MyPageFragment(userId: String, userNickname: String, userPhone: String, memberId: Int) :
     Fragment() {
@@ -33,14 +33,10 @@ class MyPageFragment(userId: String, userNickname: String, userPhone: String, me
     ): View {
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.textNickname.text = getString(R.string.nickname, nickname)
         binding.textPhone.text = phone
         binding.textId.text = id
@@ -51,10 +47,7 @@ class MyPageFragment(userId: String, userNickname: String, userPhone: String, me
             }
             startActivity(intentChangePassword)
         }
-
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
