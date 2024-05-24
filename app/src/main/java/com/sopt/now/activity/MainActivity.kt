@@ -3,8 +3,8 @@ package com.sopt.now.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.sopt.now.R
-import com.sopt.now.databinding.ActivityMainBinding
+import com.sopt.now.compose.R
+import com.sopt.now.compose.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

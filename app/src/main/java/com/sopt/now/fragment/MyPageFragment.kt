@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.sopt.now.R
 import com.sopt.now.activity.ChangePasswordActivity
-import com.sopt.now.databinding.FragmentMypageBinding
+import com.sopt.now.compose.R
+import com.sopt.now.compose.databinding.FragmentMypageBinding
 
 class MyPageFragment(userId: String, userNickname: String, userPhone: String, memberId: Int) :
     Fragment() {

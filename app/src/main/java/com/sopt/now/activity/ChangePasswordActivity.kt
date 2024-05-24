@@ -6,9 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
+import com.sopt.now.compose.databinding.ActivityChangePasswordBinding
 import com.sopt.now.dataClass.RequestPasswordDto
 import com.sopt.now.dataClass.ResponseDto
-import com.sopt.now.databinding.ActivityChangePasswordBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

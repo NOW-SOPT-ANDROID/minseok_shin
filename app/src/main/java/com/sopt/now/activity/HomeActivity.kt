@@ -5,10 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.sopt.now.R
 import com.sopt.now.ServicePool.authService
+import com.sopt.now.compose.R
+import com.sopt.now.compose.databinding.ActivityHomeBinding
 import com.sopt.now.dataClass.ResponseInfoDto
-import com.sopt.now.databinding.ActivityHomeBinding
 import com.sopt.now.fragment.HomeFragment
 import com.sopt.now.fragment.MyPageFragment
 import com.sopt.now.fragment.SearchFragment

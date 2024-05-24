@@ -6,9 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.ServicePool
+import com.sopt.now.compose.databinding.ActivityLoginBinding
 import com.sopt.now.dataClass.RequestLogInDto
 import com.sopt.now.dataClass.ResponseDto
-import com.sopt.now.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
