@@ -1,5 +1,6 @@
 package com.sopt.now.compose.screen
 
+import ChangePasswordViewModel
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,20 +27,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.sopt.now.compose.LocalNavGraphViewModelStoreOwner
-import com.sopt.now.compose.NavViewModel
 import com.sopt.now.compose.Routes
-import com.sopt.now.compose.ServicePool
-import com.sopt.now.compose.data.RequestPasswordDto
-import com.sopt.now.compose.data.ResponseDto
-import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.sopt.now.compose.viewmodel.LocalNavGraphViewModelStoreOwner
+import com.sopt.now.compose.viewmodel.NavViewModel
 
 @Composable
 fun ChangePasswordScreen(
     navController: NavHostController,
+    changePasswordViewModel: ChangePasswordViewModel = viewModel()
 ) {
 
     var previousPassword by remember {
@@ -52,116 +47,87 @@ fun ChangePasswordScreen(
         mutableStateOf("")
     }
 
-    val navViewModel: NavViewModel =
-        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
-    val authService by lazy { ServicePool.authService }
-
     val context = LocalContext.current
 
-    fun getPasswordRequestDto(): RequestPasswordDto {
-        val previousPw = previousPassword
-        val newPw = newPassword
-        val newPwCheck = newPasswordCheck
-
-        return RequestPasswordDto(
-            previousPassword = previousPw,
-            newPassword = newPw,
-            newPasswordVerification = newPwCheck,
-
-            )
-    }
+    val navViewModel: NavViewModel =
+        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
     fun changePassword(memberId: Int) {
-        val passwordRequest = getPasswordRequestDto()
-        authService.changePassword(memberId, passwordRequest)
-            .enqueue(object : Callback<ResponseDto> {
-                override fun onResponse(
-                    call: Call<ResponseDto>,
-                    response: Response<ResponseDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(
-                            context,
-                            "비밀번호 변경 완료! 새 비밀번호로 로그인 하세요",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        navController.navigate(Routes.Login.route) {
-                            popUpTo(Routes.Login.route) {
-                                inclusive = true
-                            }
-                            launchSingleTop = true
-                        }
-                    } else {
-                        Toast.makeText(context, "비밀번호 변경 실패", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
-                    Toast.makeText(context, "비밀번호 변경 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
+        changePasswordViewModel.changePassword(
+            memberId,
+            previousPassword,
+            newPassword,
+            newPasswordCheck
+        )
     }
 
-
-    NOWSOPTAndroidTheme {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(40.dp))
-            Text(text = "Welcome to SOPT")
-            Spacer(modifier = Modifier.height(20.dp))
-            TextField(
-                value = previousPassword,
-                onValueChange = { previousPassword = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                label = { Text("기존 비밀번호 입력") },
-                placeholder = { Text("") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(
-                    onNext = {
-                    }
-                )
-            )
-            TextField(
-                value = newPassword,
-                onValueChange = { newPassword = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                label = { Text("새 비밀번호 입력") },
-                placeholder = { Text("") },
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-
-            TextField(
-                value = newPasswordCheck,
-                onValueChange = { newPasswordCheck = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                label = { Text("새 비밀번호 확인") },
-                placeholder = { Text("") },
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-
-            Button(
-                modifier = Modifier.padding(10.dp),
-                onClick = {
-                    changePassword(navViewModel.memberId)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Text(text = "Welcome to SOPT")
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = previousPassword,
+            onValueChange = { previousPassword = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            label = { Text("기존 비밀번호 입력") },
+            placeholder = { Text("") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(
+                onNext = {
                 }
-            ) {
-                Text(text = "비밀번호 변경")
-            }
+            )
+        )
+        TextField(
+            value = newPassword,
+            onValueChange = { newPassword = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            label = { Text("새 비밀번호 입력") },
+            placeholder = { Text("") },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
 
+        TextField(
+            value = newPasswordCheck,
+            onValueChange = { newPasswordCheck = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            label = { Text("새 비밀번호 확인") },
+            placeholder = { Text("") },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+
+        Button(
+            modifier = Modifier.padding(10.dp),
+            onClick = {
+                changePassword(navViewModel.memberId)
+                Toast.makeText(
+                    context,
+                    "비밀번호 변경 완료! 새 비밀번호로 로그인 하세요",
+                    Toast.LENGTH_SHORT
+                ).show()
+                navController.navigate(Routes.Login.route) {
+                    popUpTo(Routes.Login.route) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            }
+        ) {
+            Text(text = "비밀번호 변경")
         }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.viewmodel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

@@ -1,6 +1,5 @@
 package com.sopt.now.compose.screen
 
-
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -28,16 +27,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.sopt.now.compose.LocalNavGraphViewModelStoreOwner
-import com.sopt.now.compose.NavViewModel
 import com.sopt.now.compose.Routes
-import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestLogInDto
-import com.sopt.now.compose.data.ResponseDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.sopt.now.compose.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
@@ -49,49 +42,33 @@ fun LoginScreen(
     var textPw by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-
-    val navViewModel: NavViewModel =
-        viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
-    val authService by lazy { ServicePool.authService }
-
+    val loginViewModel: LoginViewModel = viewModel()
 
     fun login() {
         val id = textId
         val password = textPw
         val loginRequest = RequestLogInDto(id, password)
 
-        authService.logIn(loginRequest).enqueue(object : Callback<ResponseDto> {
-            override fun onResponse(
-                call: Call<ResponseDto>,
-                response: Response<ResponseDto>
-            ) {
-                if (response.isSuccessful) {
-                    val memberId = response.headers()["Location"]!!.toInt()
-                    Toast.makeText(
-                        context,
-                        "로그인 성공 memberID: $memberId",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    onLoginSuccess(true)
-                    navViewModel.memberId = memberId
-                    navController.navigate(Routes.Home.route) {
-                        popUpTo(Routes.Login.route) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
+        loginViewModel.login(loginRequest) { success, memberId ->
+            if (success) {
+                Toast.makeText(
+                    context,
+                    "로그인 성공 memberID: $memberId",
+                    Toast.LENGTH_SHORT
+                ).show()
+                onLoginSuccess(true)
+                navController.navigate(Routes.Home.route) {
+                    popUpTo(Routes.Login.route) {
+                        inclusive = true
                     }
-                    Log.d("LoginActivity", "memberId of viewModel :  $memberId")
-
-                } else {
-                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    launchSingleTop = true
                 }
-            }
+                Log.d("LoginActivity", "memberId of viewModel :  $memberId")
 
-            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
-                Toast.makeText(context, "로그인 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
-                    .show()
+            } else {
+                Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     NOWSOPTAndroidTheme {

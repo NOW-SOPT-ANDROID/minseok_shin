@@ -12,6 +12,8 @@ import com.sopt.now.compose.screen.LoginScreen
 import com.sopt.now.compose.screen.MyPageScreen
 import com.sopt.now.compose.screen.SearchScreen
 import com.sopt.now.compose.screen.SignupScreen
+import com.sopt.now.compose.viewmodel.LocalNavGraphViewModelStoreOwner
+import com.sopt.now.compose.viewmodel.rememberViewModelStoreOwner
 
 sealed class Routes(val route: String) {
     data object Login : Routes("Login")
