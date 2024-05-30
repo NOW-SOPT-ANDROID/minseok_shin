@@ -30,7 +30,9 @@ import androidx.navigation.NavHostController
 import com.sopt.now.compose.Routes
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
+import com.sopt.now.compose.viewmodel.LocalNavGraphViewModelStoreOwner
 import com.sopt.now.compose.viewmodel.LoginViewModel
+import com.sopt.now.compose.viewmodel.NavViewModel
 
 @Composable
 fun LoginScreen(
@@ -44,6 +46,10 @@ fun LoginScreen(
 
     val loginViewModel: LoginViewModel = viewModel()
 
+    val navViewModel: NavViewModel = viewModel(
+        viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current
+    )
+
     fun login() {
         val id = textId
         val password = textPw
@@ -56,6 +62,7 @@ fun LoginScreen(
                     "로그인 성공 memberID: $memberId",
                     Toast.LENGTH_SHORT
                 ).show()
+                navViewModel.memberId=memberId
                 onLoginSuccess(true)
                 navController.navigate(Routes.Home.route) {
                     popUpTo(Routes.Login.route) {

@@ -2,6 +2,7 @@ package com.sopt.now.compose.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.ServicePool
 import com.sopt.now.compose.data.RequestLogInDto
 import com.sopt.now.compose.data.ResponseDto
@@ -17,6 +18,7 @@ class LoginViewModel : ViewModel() {
     private val _loginState =
         MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> = _loginState
+
 
     fun login(loginRequest: RequestLogInDto, onResult: (Boolean, Int) -> Unit) {
         _loginState.value = LoginState.Loading
