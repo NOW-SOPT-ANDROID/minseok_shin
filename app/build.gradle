@@ -67,4 +67,8 @@ dependencies {
     implementation('androidx.activity:activity-ktx:1.9.0')
 
 
+    // dependency에 아래 라이브러리를 추가해주세요
+    implementation('com.google.android.gms:play-services-location:21.2.0')
+
+
 }
