@@ -19,19 +19,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.now.compose.Friend
-import com.sopt.now.compose.MyProfile
 import com.sopt.now.compose.R
+import com.sopt.now.compose.domain.Friend
+import com.sopt.now.compose.domain.MyProfile
 import com.sopt.now.compose.viewmodel.HomeViewModel
 import com.sopt.now.compose.viewmodel.LocalNavGraphViewModelStoreOwner
 import com.sopt.now.compose.viewmodel.NavViewModel
@@ -42,16 +45,31 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
         viewModel(viewModelStoreOwner = LocalNavGraphViewModelStoreOwner.current)
 
     val myImage = R.drawable.baseline_person_24
-    val myName by remember {
+    var myName by remember {
         mutableStateOf("")
     }
     val ybDescription = stringResource(id = R.string.yb)
     val obDescription = stringResource(id = R.string.ob)
     val partDescription = stringResource(id = R.string.part)
     val friendImage = R.drawable.baseline_person_outline_24
+    viewModel.searchInfo(navViewModel.memberId)
 
-    LaunchedEffect(Unit) {
-        viewModel.searchInfo(navViewModel.memberId)
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(viewModel.homeState, lifecycleOwner) {
+        viewModel.homeState.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { homeState ->
+                when (homeState) {
+                    is HomeViewModel.HomeState.Success -> {
+                        myName = homeState.responseInfoDto.data.nickname
+                    }
+
+                    is HomeViewModel.HomeState.Error -> {
+
+                    }
+
+                    else -> Unit
+                }
+            }
     }
 
     val friendList = listOf(

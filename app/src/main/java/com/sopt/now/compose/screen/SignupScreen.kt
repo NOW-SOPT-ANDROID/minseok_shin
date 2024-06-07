@@ -23,12 +23,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.sopt.now.compose.Routes
-import com.sopt.now.compose.data.RequestSignUpDto
+import com.sopt.now.compose.data.model.RequestSignUpDto
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 import com.sopt.now.compose.viewmodel.SignupViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignupScreen(navController: NavController) {
@@ -53,7 +55,7 @@ fun SignupScreen(navController: NavController) {
         )
     }
 
-    fun signUp() {
+    suspend fun signUp() {
         val signUpRequest = getSignUpRequestDto()
         viewModel.signup(signUpRequest)
     }
@@ -137,7 +139,10 @@ fun SignupScreen(navController: NavController) {
             Button(
                 modifier = Modifier.padding(10.dp),
                 onClick = {
-                    signUp()
+                    viewModel.viewModelScope.launch {
+                        runCatching { signUp() }
+                    }
+
                 }
             ) {
                 Text(text = "회원가입 하기")

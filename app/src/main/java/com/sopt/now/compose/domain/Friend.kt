@@ -1,4 +1,4 @@
-package com.sopt.now.compose
+package com.sopt.now.compose.domain
 
 data class Friend(
     val profileImageRes: Int,

@@ -1,38 +1,29 @@
 package com.sopt.now.compose.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.ServicePool
-import com.sopt.now.compose.data.RequestSignUpDto
-import com.sopt.now.compose.data.ResponseDto
+import com.sopt.now.compose.data.model.RequestSignUpDto
+import com.sopt.now.compose.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 class SignupViewModel : ViewModel() {
-    private val authService by lazy { ServicePool.authService }
+    private val authRepository: AuthRepository = AuthRepository(ServicePool.authService)
 
     private val _signupState =
         MutableStateFlow<SignupState>(SignupState.Idle)
     val signupState: StateFlow<SignupState> = _signupState
 
-    fun signup(signUpRequest: RequestSignUpDto) {
+    suspend fun signup(signUpRequest: RequestSignUpDto) {
         _signupState.value = SignupState.Loading
-
-        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseDto> {
-            override fun onResponse(call: Call<ResponseDto>, response: Response<ResponseDto>) {
-                if (response.isSuccessful) {
-                    _signupState.value = SignupState.Success
-                } else {
-                    _signupState.value = SignupState.Error("회원가입 실패")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
-                _signupState.value = SignupState.Error("서버 에러 발생")
-            }
-        })
+        viewModelScope.launch {
+            runCatching {
+                authRepository.signUp(signUpRequest)
+            }.onSuccess { _signupState.value = SignupState.Success }
+                .onFailure { _signupState.value = SignupState.Error("회원가입 실패") }
+        }
     }
 
     sealed class SignupState {

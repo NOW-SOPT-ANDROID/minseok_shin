@@ -1,52 +1,41 @@
 package com.sopt.now.compose.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.ServicePool
-import com.sopt.now.compose.data.RequestLogInDto
-import com.sopt.now.compose.data.ResponseDto
+import com.sopt.now.compose.data.model.RequestLogInDto
+import com.sopt.now.compose.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    private val authService by lazy { ServicePool.authService }
+    private val authRepository: AuthRepository = AuthRepository(ServicePool.authService)
 
     private val _loginState =
         MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> = _loginState
 
 
-    fun login(loginRequest: RequestLogInDto, onResult: (Boolean, Int) -> Unit) {
+    fun login(loginRequest: RequestLogInDto) {
         _loginState.value = LoginState.Loading
 
-        authService.logIn(loginRequest).enqueue(object : Callback<ResponseDto> {
-            override fun onResponse(call: Call<ResponseDto>, response: Response<ResponseDto>) {
-                if (response.isSuccessful) {
-                    val memberId = response.headers()["Location"]!!.toInt()
-                    _loginState.value = LoginState.Success
-                    onResult(true, memberId)
-                } else {
-                    _loginState.value = LoginState.Error("로그인 실패")
-                    onResult(false, -1)
-                }
+        viewModelScope.launch {
+            runCatching {
+                authRepository.logIn(loginRequest)
+            }.onSuccess {
+                _loginState.value = LoginState.Success(it)
+            }.onFailure {
+                _loginState.value = LoginState.Error("로그인 변경 실패")
             }
+        }
 
-            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
-                _loginState.value = LoginState.Error("로그인 요청 실패: ${t.message}")
-                Log.d("LoginViewModel", "로그인 요청 실패: ${t.message}")
-                onResult(false, -1)
-            }
-        })
     }
 
     sealed class LoginState {
         object Idle : LoginState()
         object Loading : LoginState()
-        object Success : LoginState()
+        data class Success<T>(val data: T) : LoginState()
         data class Error(val message: String) : LoginState()
     }
 }

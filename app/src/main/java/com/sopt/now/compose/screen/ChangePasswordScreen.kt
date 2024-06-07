@@ -1,6 +1,5 @@
 package com.sopt.now.compose.screen
 
-import ChangePasswordViewModel
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.sopt.now.compose.Routes
+import com.sopt.now.compose.viewmodel.ChangePasswordViewModel
 import com.sopt.now.compose.viewmodel.LocalNavGraphViewModelStoreOwner
 import com.sopt.now.compose.viewmodel.NavViewModel
 
