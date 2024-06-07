@@ -3,7 +3,7 @@ package com.sopt.now.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sopt.now.dataClass.Friend
+import com.sopt.now.data.Friend
 import com.sopt.now.databinding.ItemFriendBinding
 import com.sopt.now.viewHolder.FriendViewHolder
 

@@ -1,25 +1,51 @@
 package com.sopt.now.viewModel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.sopt.now.R
-import com.sopt.now.dataClass.Friend
-import com.sopt.now.dataClass.MyProfile
+import com.sopt.now.ServicePool
+import com.sopt.now.data.Friend
+import com.sopt.now.data.MyProfile
+import com.sopt.now.data.model.ResponseInfoDto
+import com.sopt.now.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class HomeViewModel(userNickname: String) : ViewModel() {
+
+class HomeViewModel : ViewModel() {
+    val authRepository: AuthRepository = AuthRepository(ServicePool.authService)
+
+
     private val _myProfile = MutableStateFlow<List<MyProfile>>(emptyList())
     val myProfile: StateFlow<List<MyProfile>> = _myProfile
 
     private val _friendList = MutableStateFlow<List<Friend>>(emptyList())
     val friendList: StateFlow<List<Friend>> = _friendList
 
+    private val _homeState = MutableStateFlow<HomeState>(HomeState.Idle)
+    val homeState get() = _homeState.asStateFlow()
+
+    fun searchInfo(memberId: Int) {
+        _homeState.value = HomeState.Loading
+        viewModelScope.launch {
+            runCatching {
+                authRepository.getInfo(memberId)
+            }.onSuccess { responseInfoDto ->
+                _homeState.value = HomeState.Success(responseInfoDto = responseInfoDto)
+            }.onFailure {
+                _homeState.value = HomeState.Error("Error")
+
+            }
+        }
+    }
+
     init {
         _myProfile.value = listOf(
             MyProfile(
                 profileImage = R.drawable.baseline_person_outline_24,
-                name = userNickname,
+                name = "",
                 selfDescription = "내 프로필 소개 텍스트"
             )
         )
@@ -141,15 +167,10 @@ class HomeViewModel(userNickname: String) : ViewModel() {
     }
 }
 
-class HomeViewModelFactory(private val userNickname: String) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(userNickname) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+sealed class HomeState {
+    object Idle : HomeState()
+    object Loading : HomeState()
+    data class Success(val responseInfoDto: ResponseInfoDto) : HomeState()
+    data class Error(val message: String) : HomeState()
 }
-
-
 

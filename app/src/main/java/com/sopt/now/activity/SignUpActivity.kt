@@ -2,13 +2,15 @@ package com.sopt.now.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.sopt.now.dataClass.RequestSignUpDto
+import com.sopt.now.data.model.RequestSignUpDto
 import com.sopt.now.databinding.ActivitySignUpBinding
 import com.sopt.now.viewModel.SignUpViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -20,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initViews()
-        observeViewModel()
+        collectSignUpState()
     }
 
     private fun initViews() {
@@ -34,39 +36,20 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signUp(signUpRequest)
     }
 
-    private fun observeViewModel() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.signUpState.collect { state ->
-                when (state) {
-                    is SignUpViewModel.SignUpState.Idle -> {
-                        // No action needed
-                    }
-
-                    is SignUpViewModel.SignUpState.Loading -> {
-                        // Show loading indicator if needed
-                    }
-
-                    is SignUpViewModel.SignUpState.Success -> {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "회원가입 성공 유저의 ID는 ${state.userId} 입니다",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    is SignUpViewModel.SignUpState.Error -> {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "회원가입 실패: ${state.message}",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
+    private fun collectSignUpState() {
+        viewModel.signupState.flowWithLifecycle(lifecycle).onEach { signupState ->
+            when (signupState) {
+                is SignUpViewModel.SignupState.Success -> {
+                    val intentLogin =
+                        Intent(this@SignUpActivity, LoginActivity::class.java)
+                    startActivity(intentLogin)
                 }
+
+                else -> Unit
             }
-        }
+        }.launchIn(lifecycleScope)
     }
+
 
     private fun getSignUpRequestDto(): RequestSignUpDto {
         val id = binding.editTextId.text.toString()

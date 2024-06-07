@@ -3,21 +3,24 @@ package com.sopt.now.activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.sopt.now.R
-import com.sopt.now.ServicePool.authService
-import com.sopt.now.dataClass.ResponseInfoDto
 import com.sopt.now.databinding.ActivityHomeBinding
 import com.sopt.now.fragment.HomeFragment
 import com.sopt.now.fragment.MyPageFragment
 import com.sopt.now.fragment.SearchFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.sopt.now.viewModel.HomeState
+import com.sopt.now.viewModel.HomeViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val homeViewModel by viewModels<HomeViewModel>()
 
 
     private lateinit var userId: String
@@ -37,39 +40,26 @@ class HomeActivity : AppCompatActivity() {
 
         Log.d("HomeActivity", "HomeActivity onCreate")
 
-        searchInfo(memberId)
-
-
+        homeViewModel.searchInfo(memberId)
+        initLayout()
+        clickBottomNavigation(memberId)
+        collectHomeState()
     }
 
-    private fun searchInfo(memberId: Int) {
-        authService.info(memberId).enqueue(object : Callback<ResponseInfoDto> {
-            override fun onResponse(
-                call: Call<ResponseInfoDto>,
-                response: Response<ResponseInfoDto>
-            ) {
-                if (response.isSuccessful) {
-                    userId = response.body()!!.data.authenticationId
-                    userNickname = response.body()!!.data.nickname
-                    userPhone = response.body()!!.data.phone
-                    clickBottomNavigation(memberId)
-                    val currentFragment =
-                        supportFragmentManager.findFragmentById(binding.fcvHome.id)
-                    if (currentFragment == null) {
-                        supportFragmentManager.beginTransaction()
-                            .add(binding.fcvHome.id, HomeFragment(userNickname))
-                            .commit()
-                    }
-                } else {
-                    Log.d("HomeActivity", "response ${response.body()?.message}")
-                }
-            }
+    private fun initLayout() {
+        supportFragmentManager.findFragmentById(R.id.fcv_home) ?: replaceFragment(HomeFragment())
+    }
 
-            override fun onFailure(call: Call<ResponseInfoDto>, t: Throwable) {
-                Toast.makeText(this@HomeActivity, "조회 요청 실패: ${t.message}", Toast.LENGTH_SHORT)
-                    .show()
+    private fun collectHomeState() {
+        homeViewModel.homeState.flowWithLifecycle(lifecycle).onEach { homeState ->
+            when (homeState) {
+                is HomeState.Success -> {
+                    userNickname = homeState.responseInfoDto.data.nickname
+                }
+
+                else -> Unit
             }
-        })
+        }.launchIn(lifecycleScope)
     }
 
 
@@ -77,7 +67,7 @@ class HomeActivity : AppCompatActivity() {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
-                    replaceFragment(HomeFragment(userNickname))
+                    replaceFragment(HomeFragment())
                     true
                 }
 
@@ -87,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment(userId, userNickname, userPhone, memberId))
+                    replaceFragment(MyPageFragment())
                     true
                 }
 

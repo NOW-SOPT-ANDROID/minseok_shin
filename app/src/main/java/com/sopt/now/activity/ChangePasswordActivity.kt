@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.sopt.now.dataClass.RequestPasswordDto
+import com.sopt.now.data.model.RequestPasswordDto
 import com.sopt.now.databinding.ActivityChangePasswordBinding
 import com.sopt.now.viewModel.ChangePasswordViewModel
 
@@ -46,12 +46,17 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun changePassword(memberId: Int) {
         val passwordRequest = getPasswordRequestDto()
-        viewModel.changePassword(memberId, passwordRequest)
+        viewModel.changePassword(
+            memberId,
+            passwordRequest.previousPassword,
+            passwordRequest.newPassword,
+            passwordRequest.newPasswordVerification
+        )
     }
 
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
-            viewModel.changePasswordState.collect { state ->
+            viewModel.changePassWordState.collect { state ->
                 when (state) {
                     is ChangePasswordViewModel.ChangePasswordState.Success -> {
                         Toast.makeText(

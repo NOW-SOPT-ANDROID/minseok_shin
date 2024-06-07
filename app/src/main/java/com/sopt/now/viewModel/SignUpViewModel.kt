@@ -1,47 +1,35 @@
 package com.sopt.now.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sopt.now.ServicePool
-import com.sopt.now.dataClass.RequestSignUpDto
-import com.sopt.now.dataClass.ResponseDto
+import com.sopt.now.data.model.RequestSignUpDto
+import com.sopt.now.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 class SignUpViewModel : ViewModel() {
-    private val authService = ServicePool.authService
+    private val authRepository: AuthRepository = AuthRepository(ServicePool.authService)
 
-    private val _signUpState = MutableStateFlow<SignUpState>(SignUpState.Idle)
-    val signUpState: StateFlow<SignUpState> = _signUpState
+    private val _signupState =
+        MutableStateFlow<SignupState>(SignupState.Idle)
+    val signupState: StateFlow<SignupState> = _signupState
 
     fun signUp(signUpRequest: RequestSignUpDto) {
-        _signUpState.value = SignUpState.Loading
-        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseDto> {
-            override fun onResponse(call: Call<ResponseDto>, response: Response<ResponseDto>) {
-                if (response.isSuccessful) {
-                    val userId = response.headers()["Location"]?.toIntOrNull()
-                    if (userId != null) {
-                        _signUpState.value = SignUpState.Success(userId)
-                    } else {
-                        _signUpState.value = SignUpState.Error("Invalid userId")
-                    }
-                } else {
-                    _signUpState.value = SignUpState.Error("Sign up failed: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseDto>, t: Throwable) {
-                _signUpState.value = SignUpState.Error(t.message ?: "Unknown error")
-            }
-        })
+        _signupState.value = SignupState.Loading
+        viewModelScope.launch {
+            runCatching {
+                authRepository.signUp(signUpRequest)
+            }.onSuccess { _signupState.value = SignupState.Success }
+                .onFailure { _signupState.value = SignupState.Error("회원가입 실패") }
+        }
     }
 
-    sealed class SignUpState {
-        data object Idle : SignUpState()
-        data object Loading : SignUpState()
-        data class Success(val userId: Int) : SignUpState()
-        data class Error(val message: String) : SignUpState()
+    sealed class SignupState {
+        object Idle : SignupState()
+        object Loading : SignupState()
+        object Success : SignupState()
+        data class Error(val message: String) : SignupState()
     }
 }
